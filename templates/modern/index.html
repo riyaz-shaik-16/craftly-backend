@@ -1,0 +1,219 @@
+<header class="hero">
+  <div class="container">
+    <div class="hero-content">
+
+      {{#if personal.avatar}}
+      <img src="{{personal.avatar}}" alt="{{personal.name}}" class="avatar">
+      {{/if}}
+
+      <h1 class="name">{{personal.name}}</h1>
+      <p class="title">{{personal.title}}</p>
+      <p class="bio">{{personal.bio}}</p>
+
+      <div class="contact-info">
+        {{#if personal.email}}
+        <p>Email: {{personal.email}}</p>
+        {{/if}}
+
+        {{#if personal.phone}}
+        <p>Phone: {{personal.phone}}</p>
+        {{/if}}
+
+        {{#if personal.location}}
+        <p>Location: {{personal.location}}</p>
+        {{/if}}
+      </div>
+
+      <div class="social-links">
+        {{#if socialLinks.github}}
+        <a href="{{socialLinks.github}}" target="_blank">GitHub</a>
+        {{/if}}
+
+        {{#if socialLinks.linkedin}}
+        <a href="{{socialLinks.linkedin}}" target="_blank">LinkedIn</a>
+        {{/if}}
+
+        {{#if socialLinks.twitter}}
+        <a href="{{socialLinks.twitter}}" target="_blank">Twitter</a>
+        {{/if}}
+
+        {{#if socialLinks.website}}
+        <a href="{{socialLinks.website}}" target="_blank">Website</a>
+        {{/if}}
+      </div>
+
+    </div>
+  </div>
+</header>
+
+
+{{#if projects}}
+<section id="projects">
+  <div class="container">
+    <h2>Projects</h2>
+
+    {{#each projects}}
+    <div class="project">
+
+      {{#if this.featured}}
+      <span>Featured Project</span>
+      {{/if}}
+
+      <h3>{{this.title}}</h3>
+      <p>{{this.description}}</p>
+
+      {{#if this.techStack}}
+      <ul>
+        {{#each this.techStack}}
+        <li>{{this}}</li>
+        {{/each}}
+      </ul>
+      {{/if}}
+
+      <div>
+        {{#if this.githubLink}}
+        <a href="{{this.githubLink}}" target="_blank">GitHub</a>
+        {{/if}}
+
+        {{#if this.liveLink}}
+        <a href="{{this.liveLink}}" target="_blank">Live Demo</a>
+        {{/if}}
+      </div>
+
+    </div>
+    {{/each}}
+
+  </div>
+</section>
+{{/if}}
+
+
+{{#if experience}}
+<section id="experience">
+  <div class="container">
+    <h2>Experience</h2>
+
+    {{#each experience}}
+    <div class="experience-item">
+      <h3>{{this.role}}</h3>
+      <p>{{this.company}}</p>
+
+      <p>
+        {{#if this.startDate}}{{this.startDate}}{{/if}}
+        {{#if this.endDate}} - {{this.endDate}}{{/if}}
+        {{#if this.current}} - Present{{/if}}
+      </p>
+
+      <p>{{this.description}}</p>
+    </div>
+    {{/each}}
+
+  </div>
+</section>
+{{/if}}
+
+
+{{#if skills}}
+<section id="skills">
+  <div class="container">
+    <h2>Skills</h2>
+
+    {{#each skills}}
+    <div class="skill">
+      <h4>{{this.name}}</h4>
+
+      {{#if this.category}}
+      <p>Category: {{this.category}}</p>
+      {{/if}}
+
+      {{#if this.level}}
+      <p>Level: {{this.level}} / 5</p>
+      {{/if}}
+    </div>
+    {{/each}}
+
+  </div>
+</section>
+{{/if}}
+
+
+{{#if education}}
+<section id="education">
+  <div class="container">
+    <h2>Education</h2>
+
+    {{#each education}}
+    <div class="education-item">
+      <h3>{{this.degree}}</h3>
+      <p>{{this.institution}}</p>
+
+      {{#if this.field}}
+      <p>{{this.field}}</p>
+      {{/if}}
+
+      <p>
+        {{#if this.startDate}}{{this.startDate}}{{/if}}
+        {{#if this.endDate}} - {{this.endDate}}{{/if}}
+      </p>
+    </div>
+    {{/each}}
+
+  </div>
+</section>
+{{/if}}
+
+
+{{#if certifications}}
+<section id="certifications">
+  <div class="container">
+    <h2>Certifications</h2>
+
+    {{#each certifications}}
+    <div class="certification-item">
+      <h3>{{this.name}}</h3>
+      <p>{{this.issuer}}</p>
+
+      {{#if this.issueDate}}
+      <p>Issued: {{this.issueDate}}</p>
+      {{/if}}
+
+      {{#if this.credentialUrl}}
+      <a href="{{this.credentialUrl}}" target="_blank">View Credential</a>
+      {{/if}}
+    </div>
+    {{/each}}
+
+  </div>
+</section>
+{{/if}}
+
+
+{{#if achievements}}
+<section id="achievements">
+  <div class="container">
+    <h2>Achievements</h2>
+
+    {{#each achievements}}
+    <div class="achievement-item">
+      <h3>{{this.title}}</h3>
+      <p>{{this.description}}</p>
+
+      {{#if this.date}}
+      <p>{{this.date}}</p>
+      {{/if}}
+    </div>
+    {{/each}}
+
+  </div>
+</section>
+{{/if}}
+
+
+<footer>
+  <div class="container">
+    <p>
+      © {{personal.name}}
+      {{#if personal.email}} • {{personal.email}}{{/if}}
+    </p>
+  </div>
+</footer>

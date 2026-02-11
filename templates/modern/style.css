@@ -1,0 +1,249 @@
+/* ===== RESET ===== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background: #ffffff;
+  color: #111827;
+  line-height: 1.6;
+}
+
+/* ===== GLOBAL ===== */
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 0;
+}
+
+section {
+  border-top: 1px solid #f3f4f6;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 40px;
+}
+
+a {
+  text-decoration: none;
+  color: #6366f1;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* ===== HERO ===== */
+
+.hero {
+  padding: 120px 0 80px;
+  text-align: center;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 24px;
+  object-fit: cover;
+}
+
+.name {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 20px;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+.bio {
+  max-width: 600px;
+  margin: 0 auto 30px;
+  color: #4b5563;
+}
+
+.contact-info p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.social-links {
+  margin-top: 20px;
+}
+
+.social-links a {
+  margin: 0 10px;
+  font-weight: 500;
+}
+
+/* ===== PROJECTS ===== */
+
+.project {
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.project h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.project ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 15px 0;
+  list-style: none;
+}
+
+.project li {
+  padding: 6px 12px;
+  background: #f3f4f6;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.project a {
+  margin-right: 15px;
+  font-size: 14px;
+}
+
+/* ===== EXPERIENCE ===== */
+
+.experience-item {
+  margin-bottom: 40px;
+}
+
+.experience-item h3 {
+  font-size: 18px;
+}
+
+.experience-item p {
+  color: #6b7280;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* ===== SKILLS ===== */
+
+.skill {
+  margin-bottom: 20px;
+}
+
+.skill h4 {
+  font-size: 16px;
+}
+
+.skill p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ===== EDUCATION ===== */
+
+.education-item {
+  margin-bottom: 30px;
+}
+
+.education-item h3 {
+  font-size: 18px;
+}
+
+.education-item p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ===== CERTIFICATIONS ===== */
+
+.certification-item {
+  margin-bottom: 30px;
+}
+
+.certification-item h3 {
+  font-size: 18px;
+}
+
+.certification-item p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ===== ACHIEVEMENTS ===== */
+
+.achievement-item {
+  margin-bottom: 25px;
+}
+
+.achievement-item h3 {
+  font-size: 18px;
+}
+
+.achievement-item p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ===== FOOTER ===== */
+
+footer {
+  border-top: 1px solid #f3f4f6;
+  text-align: center;
+  padding: 40px 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+
+  .container {
+    padding: 60px 0;
+  }
+
+  .hero {
+    padding: 80px 0 60px;
+  }
+
+  .name {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .project ul {
+    justify-content: center;
+  }
+
+}
