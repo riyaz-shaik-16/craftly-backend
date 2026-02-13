@@ -102,3 +102,58 @@ export const login = async (req, res, next) => {
     next(error);
   }
 };
+
+
+export const updateProfile = async (req, res, next) => {
+  try {
+    const { fullName, email } = req.body
+
+    if (!fullName || !email) {
+      return res.status(400).json({
+        success: false,
+        message: "Full name and email are required"
+      })
+    }
+
+    const user = await User.findById(req.user._id)
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found"
+      })
+    }
+
+    // Check if email is changing
+    if (email !== user.email) {
+      const existingEmail = await User.findOne({ email })
+
+      if (existingEmail) {
+        return res.status(409).json({
+          success: false,
+          message: "Email already in use"
+        })
+      }
+
+      user.email = email
+    }
+
+    user.fullName = fullName
+
+    await user.save()
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      user: {
+        id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        username: user.username
+      }
+    })
+
+  } catch (error) {
+    next(error)
+  }
+}
