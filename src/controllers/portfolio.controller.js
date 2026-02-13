@@ -256,13 +256,14 @@ export const deployPortfolio = async (req, res) => {
     fs.writeFileSync(path.join(userPath, "index.html"), html);
 
     // Update deployment status
-    portfolio.deployed = true;
     portfolio.deployedUrl = `https://${user.username}.riyazdev.site`;
+    portfolio.status = "deployed";
     await portfolio.save();
 
     return res.status(200).json({
       success: true,
-      deployedUrl: portfolio.deployedUrl
+      deployedUrl: portfolio.deployedUrl,
+      status:portfolio.status
     });
 
   } catch (error) {
