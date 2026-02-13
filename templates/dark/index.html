@@ -1,0 +1,230 @@
+{{!-- HERO / TERMINAL — dark, code-centric --}}
+<section class="dp-hero">
+  <div class="container">
+    <div class="dp-hero-content">
+      <div class="dp-hero-text">
+        <div class="dp-prompt">
+          <span class="dp-path">~/portfolio</span>
+          <span class="dp-cursor">$</span>
+        </div>
+        <h1>{{personal.name}}</h1>
+        <div class="dp-title">{{personal.title}}</div>
+        <p class="dp-bio">{{personal.summary}}</p>
+
+        <div class="dp-contact">
+          {{#if personal.email}}
+          <span><i class="fas fa-envelope"></i> {{personal.email}}</span>
+          {{/if}}
+          {{#if personal.phone}}
+          <span><i class="fas fa-phone-alt"></i> {{personal.phone}}</span>
+          {{/if}}
+          {{#if personal.location}}
+          <span><i class="fas fa-map-marker-alt"></i> {{personal.location}}</span>
+          {{/if}}
+        </div>
+
+        {{!-- SOCIAL LINKS with engineering twist --}}
+        {{#if socialLinks.length}}
+        <div class="dp-social">
+          {{#each socialLinks}}
+            {{#if (eq this.platform "website")}}
+            <a href="{{this.url}}" target="_blank" rel="noopener" aria-label="website">
+              <i class="fas fa-globe"></i>
+            </a>
+            {{else}}
+            <a href="{{this.url}}" target="_blank" rel="noopener" aria-label="{{this.platform}}">
+              <i class="fab fa-{{this.platform}}"></i>
+            </a>
+            {{/if}}
+          {{/each}}
+        </div>
+        {{/if}}
+      </div>
+
+      {{!-- AVATAR as code‑snippet frame --}}
+      <div class="dp-avatar-frame">
+        {{#if personal.avatar}}
+        <img src="{{personal.avatar}}" alt="{{personal.name}}" class="dp-avatar">
+        {{else}}
+        <div class="dp-avatar-placeholder">{{firstLetter personal.name}}</div>
+        {{/if}}
+        <div class="dp-frame-decoration">
+          <span>/**</span><span>*/</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{!-- PROJECTS — with CLI‑inspired cards --}}
+{{#if projects.length}}
+<section class="dp-projects">
+  <div class="container">
+    <h2>&lt;projects&gt;</h2>
+    <div class="dp-project-grid">
+      {{#each projects}}
+      <div class="dp-project-card">
+        {{#if this.images.length}}
+        <div class="dp-project-images">
+          {{#each this.images}}
+          <img src="{{this}}" alt="Project screenshot">
+          {{/each}}
+          <div class="dp-image-overlay"></div>
+        </div>
+        {{/if}}
+        <div class="dp-project-content">
+          <div class="dp-project-header">
+            <h3 class="dp-project-title">{{this.title}}</h3>
+            {{#if this.featured}}
+            <span class="dp-featured"><i class="fas fa-crown"></i> featured</span>
+            {{/if}}
+          </div>
+          <p class="dp-project-desc">{{this.description}}</p>
+          {{#if this.techStack.length}}
+          <div class="dp-tech-stack">
+            {{#each this.techStack}}
+            <code class="dp-tech-badge">{{this}}</code>
+            {{/each}}
+          </div>
+          {{/if}}
+          <div class="dp-project-links">
+            {{#if this.githubLink}}
+            <a href="{{this.githubLink}}" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i> src
+            </a>
+            {{/if}}
+            {{#if this.demoLink}}
+            <a href="{{this.demoLink}}" target="_blank" rel="noopener">
+              <i class="fas fa-play-circle"></i> demo
+            </a>
+            {{/if}}
+            {{#if this.liveLink}}
+            <a href="{{this.liveLink}}" target="_blank" rel="noopener">
+              <i class="fas fa-external-link-alt"></i> live
+            </a>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- EXPERIENCE — terminal timeline --}}
+{{#if experience.length}}
+<section class="dp-experience">
+  <div class="container">
+    <h2>~/.experience</h2>
+    <div class="dp-timeline">
+      {{#each experience}}
+      <div class="dp-timeline-item">
+        <div class="dp-timeline-marker">
+          <i class="fas fa-terminal"></i>
+        </div>
+        <div class="dp-timeline-content">
+          <div class="dp-exp-header">
+            <div>
+              <h3 class="dp-exp-company">{{this.company}}</h3>
+              <span class="dp-exp-role">{{this.position}}</span>
+            </div>
+            <div class="dp-exp-date">
+              <span>{{this.startDate}} – {{this.endDate}}</span>
+            </div>
+          </div>
+          <p class="dp-exp-description">{{this.description}}</p>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- SKILLS — code‑first cloud --}}
+{{#if skills.length}}
+<section class="dp-skills">
+  <div class="container">
+    <h2># skills</h2>
+    <div class="dp-skill-cloud">
+      {{#each skills}}
+      <code class="dp-skill-tag">#{{this}}</code>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- EDUCATION — diplomas as commits --}}
+{{#if education.length}}
+<section class="dp-education">
+  <div class="container">
+    <h2>git log --education</h2>
+    <div class="dp-edu-grid">
+      {{#each education}}
+      <div class="dp-edu-card">
+        <div class="dp-edu-icon"><i class="fas fa-code-branch"></i></div>
+        <h3 class="dp-edu-institution">{{this.institution}}</h3>
+        <div class="dp-edu-degree">
+          {{this.degree}}{{#if this.field}}, {{this.field}}{{/if}}
+        </div>
+        <div class="dp-edu-date">commit {{this.startDate}}..{{this.endDate}}</div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- CERTIFICATIONS --}}
+{{#if certifications.length}}
+<section class="dp-certifications">
+  <div class="container">
+    <h2>badges.json</h2>
+    <div class="dp-cert-grid">
+      {{#each certifications}}
+      <div class="dp-cert-card">
+        {{#if this.images.length}}
+        <div class="dp-cert-images">
+          {{#each this.images}}
+          <img src="{{this}}" alt="Certificate">
+          {{/each}}
+        </div>
+        {{/if}}
+        <div class="dp-cert-content">
+          <h3 class="dp-cert-name">{{this.name}}</h3>
+          <div class="dp-cert-issuer">{{this.issuer}}</div>
+          <div class="dp-cert-year">{{this.year}}</div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- ACHIEVEMENTS --}}
+{{#if achievements.length}}
+<section class="dp-achievements">
+  <div class="container">
+    <h2>./achievements.sh</h2>
+    <div class="dp-achievement-grid">
+      {{#each achievements}}
+      <div class="dp-achievement-card">
+        <div class="dp-achievement-icon"><i class="fas fa-medal"></i></div>
+        <h3 class="dp-achievement-title">{{this.title}}</h3>
+        <p class="dp-achievement-desc">{{this.description}}</p>
+        <div class="dp-achievement-date">{{this.date}}</div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+<footer class="dp-footer">
+  <div class="container">
+    <p><span class="dp-prompt">$</span> echo "© {{personal.name}} · built with Craftly"</p>
+  </div>
+</footer>

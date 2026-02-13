@@ -1,0 +1,924 @@
+/* ---------- ONE PAGE STORY — narrative storytelling, chapter navigation, card library ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --ns-bg: #fdfaf6;
+  --ns-paper: #fffefc;
+  --ns-ink: #1e1e1e;
+  --ns-ink-light: #5a554e;
+  --ns-ink-muted: #918c86;
+  --ns-gold: #b68b40;
+  --ns-slate: #3b5c7c;
+  --ns-clay: #9c7c3b;
+  --ns-plum: #6b4e71;
+  --ns-teal: #4a716c;
+  --ns-accent: #b45f2e;
+  --ns-accent-rgb: 180, 95, 46;
+  --ns-border: #e2dbd1;
+  --ns-shadow: 0 20px 35px -15px rgba(0,0,0,0.04);
+  --ns-font-serif: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
+  --ns-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ns-font-mono: 'JetBrains Mono', 'SF Mono', Monaco, monospace;
+  --ns-font-display: 'Playfair Display', var(--ns-font-serif);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--ns-bg);
+  color: var(--ns-ink);
+  font-family: var(--ns-font-serif);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 5;
+}
+
+/* ----- CHAPTER NAVIGATION (sticky, book‑inspired) ----- */
+.ns-chapter-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(253, 250, 242, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--ns-border);
+  z-index: 100;
+  padding: 12px 0;
+  font-family: var(--ns-font-sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: transform 0.3s ease;
+}
+
+.ns-nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+}
+
+.ns-nav-track {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.ns-nav-item {
+  color: var(--ns-ink-light);
+  text-decoration: none;
+  padding: 4px 0;
+  position: relative;
+  transition: color 0.15s ease;
+}
+
+.ns-nav-item:hover,
+.ns-nav-item.active {
+  color: var(--ns-accent);
+}
+
+.ns-nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--ns-accent);
+  transition: width 0.2s ease;
+}
+
+.ns-nav-item:hover::after,
+.ns-nav-item.active::after {
+  width: 100%;
+}
+
+.ns-nav-progress {
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--ns-accent);
+  transition: width 0.1s ease;
+}
+
+/* ----- COVER ----- */
+.ns-cover {
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+  color: white;
+  text-align: center;
+}
+
+.ns-cover-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.2;
+}
+
+.ns-cover-content {
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+  padding: 0 24px;
+  animation: ns-fade-in 1.8s ease;
+}
+
+.ns-epigraph {
+  font-family: var(--ns-font-sans);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 24px;
+}
+
+.ns-cover-content h1 {
+  font-size: 6rem;
+  font-weight: 700;
+  font-family: var(--ns-font-display);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 16px;
+  color: white;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+
+.ns-title {
+  font-size: 2rem;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 32px;
+  font-family: var(--ns-font-serif);
+}
+
+.ns-cover-line {
+  width: 120px;
+  height: 2px;
+  background: var(--ns-gold);
+  margin: 32px auto;
+}
+
+.ns-cover-quote {
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255,255,255,0.9);
+  max-width: 600px;
+  margin: 0 auto 48px;
+  line-height: 1.6;
+  font-family: var(--ns-font-serif);
+}
+
+.ns-scroll-hint {
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255,255,255,0.5);
+  font-family: var(--ns-font-sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  animation: ns-bounce 2s infinite;
+}
+
+.ns-scroll-hint i {
+  font-size: 1.2rem;
+}
+
+@keyframes ns-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+@keyframes ns-fade-in {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ----- PROLOGUE ----- */
+.ns-prologue {
+  padding: 120px 0;
+  background: var(--ns-paper);
+  position: relative;
+}
+
+.ns-prologue-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.ns-prologue-text {
+  position: relative;
+}
+
+.ns-chapter-marker {
+  font-family: var(--ns-font-sans);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  color: var(--ns-accent);
+  display: block;
+  margin-bottom: 20px;
+}
+
+.ns-prologue-text h2 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  font-family: var(--ns-font-display);
+  letter-spacing: -0.02em;
+  color: var(--ns-ink);
+  margin-bottom: 32px;
+  line-height: 1.1;
+}
+
+.ns-dropcap {
+  font-size: 5.5rem;
+  font-weight: 700;
+  font-family: var(--ns-font-display);
+  color: var(--ns-accent);
+  float: left;
+  line-height: 0.8;
+  margin-right: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.ns-prologue-text p {
+  font-size: 1.25rem;
+  color: var(--ns-ink-light);
+  margin-bottom: 32px;
+  font-style: italic;
+}
+
+.ns-pull-quote {
+  margin: 40px 0;
+  padding: 24px 32px;
+  background: #f6f2ed;
+  border-left: 6px solid var(--ns-accent);
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--ns-ink);
+  font-family: var(--ns-font-serif);
+  position: relative;
+}
+
+.ns-quote-mark {
+  font-size: 3rem;
+  color: var(--ns-accent);
+  opacity: 0.3;
+  position: absolute;
+  top: -10px;
+  left: 10px;
+}
+
+.ns-signature {
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-family: var(--ns-font-serif);
+  color: var(--ns-ink);
+  position: relative;
+  display: inline-block;
+}
+
+.ns-signature::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 80px;
+  height: 2px;
+  background: var(--ns-accent);
+}
+
+.ns-prologue-image {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 30px 50px -20px rgba(0,0,0,0.1);
+}
+
+.ns-prologue-image img,
+.ns-avatar-placeholder {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.ns-prologue-image:hover img {
+  transform: scale(1.02);
+}
+
+.ns-avatar-placeholder {
+  background: var(--ns-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8rem;
+  font-weight: 600;
+  aspect-ratio: 1/1;
+}
+
+/* ----- CHAPTER HEADERS ----- */
+.ns-chapter {
+  padding: 100px 0;
+  background: white;
+  border-bottom: 1px solid var(--ns-border);
+  position: relative;
+}
+
+.ns-chapter-alt {
+  background: #fcf9f7;
+}
+
+.ns-chapter-header {
+  margin-bottom: 64px;
+  text-align: center;
+}
+
+.ns-chapter-number {
+  font-family: var(--ns-font-sans);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  color: var(--chapter-color, var(--ns-accent));
+  display: block;
+  margin-bottom: 16px;
+}
+
+.ns-chapter-header h2 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  font-family: var(--ns-font-display);
+  letter-spacing: -0.02em;
+  color: var(--ns-ink);
+  margin-bottom: 20px;
+}
+
+.ns-chapter-line {
+  width: 80px;
+  height: 2px;
+  background: var(--chapter-color, var(--ns-accent));
+  margin: 0 auto;
+}
+
+.ns-chapter-sub {
+  font-size: 1.2rem;
+  color: var(--ns-ink-light);
+  font-style: italic;
+  margin-top: 24px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ----- CHAPTER I — FOUNDATION (bookshelf library) ----- */
+.ns-library {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.ns-volume {
+  display: flex;
+  background: white;
+  border: 1px solid var(--ns-border);
+  box-shadow: var(--ns-shadow);
+  transition: all 0.25s ease;
+}
+
+.ns-volume:hover {
+  transform: translateX(8px);
+  box-shadow: 0 25px 40px -15px rgba(var(--chapter-color-rgb, var(--ns-accent-rgb)), 0.15);
+}
+
+.ns-volume-spine {
+  width: 80px;
+  background: var(--chapter-color, var(--ns-slate));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--ns-font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.ns-volume-content {
+  flex: 1;
+  padding: 28px;
+}
+
+.ns-volume-content h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: var(--ns-font-serif);
+  margin-bottom: 8px;
+}
+
+.ns-volume-meta {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--chapter-color, var(--ns-accent));
+  margin-bottom: 8px;
+}
+
+.ns-volume-date {
+  font-family: var(--ns-font-mono);
+  font-size: 0.85rem;
+  color: var(--ns-ink-muted);
+  margin-bottom: 16px;
+}
+
+.ns-volume-shelfmark {
+  font-family: var(--ns-font-mono);
+  font-size: 0.75rem;
+  color: var(--ns-ink-muted);
+  margin-top: 16px;
+  border-top: 1px dashed var(--ns-border);
+  padding-top: 12px;
+}
+
+/* ----- CHAPTER II — CRAFT (tool chest) ----- */
+.ns-toolchest {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.ns-tool-card {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  background: white;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border: 1px solid var(--ns-border);
+  box-shadow: 0 15px 30px -12px rgba(0,0,0,0.05);
+  transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+  overflow: hidden;
+}
+
+.ns-tool-card:hover {
+  transform: scale(1.05) translateY(-6px);
+  border-color: var(--ns-clay);
+  box-shadow: 0 25px 40px -12px rgba(156,124,59,0.2);
+}
+
+.ns-tool-icon {
+  font-size: 2.5rem;
+  color: var(--ns-clay);
+  transition: transform 0.2s ease;
+}
+
+.ns-tool-card:hover .ns-tool-icon {
+  transform: scale(1.1);
+  color: var(--ns-clay);
+}
+
+.ns-tool-name {
+  font-family: var(--ns-font-sans);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ns-ink);
+}
+
+.ns-tool-shade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--ns-clay);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.ns-tool-card:hover .ns-tool-shade {
+  transform: scaleX(1);
+}
+
+/* ----- CHAPTER III — CHRONICLES (experience cards) ----- */
+.ns-chronicles {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.ns-chronicle-card {
+  display: flex;
+  gap: 28px;
+  background: white;
+  border-radius: 20px;
+  padding: 28px;
+  border: 1px solid var(--ns-border);
+  box-shadow: var(--ns-shadow);
+  transition: all 0.25s ease;
+}
+
+.ns-chronicle-card:hover {
+  border-color: var(--ns-plum);
+  box-shadow: 0 25px 40px -15px rgba(107,78,113,0.1);
+}
+
+.ns-chronicle-year {
+  font-family: var(--ns-font-mono);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ns-plum);
+  min-width: 100px;
+  letter-spacing: 1px;
+  border-right: 2px solid var(--ns-border);
+  padding-right: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.ns-chronicle-body {
+  flex: 1;
+}
+
+.ns-chronicle-body h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-family: var(--ns-font-serif);
+  margin-bottom: 8px;
+}
+
+.ns-chronicle-company {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ns-plum);
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.ns-chronicle-body p {
+  font-size: 1rem;
+  color: var(--ns-ink-light);
+  margin-bottom: 16px;
+}
+
+.ns-chronicle-footnote {
+  font-family: var(--ns-font-mono);
+  font-size: 0.8rem;
+  color: var(--ns-ink-muted);
+  border-top: 1px dashed var(--ns-border);
+  padding-top: 12px;
+}
+
+/* ----- CHAPTER IV — WORKS (folio) ----- */
+.ns-folio {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  margin-top: 40px;
+}
+
+.ns-folio-piece {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.ns-folio-piece:nth-child(even) .ns-folio-media {
+  order: 2;
+}
+
+.ns-folio-media {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 25px 40px -15px rgba(0,0,0,0.1);
+}
+
+.ns-folio-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.ns-folio-piece:hover .ns-folio-media img {
+  transform: scale(1.03);
+}
+
+.ns-folio-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #f1f1f1;
+  border: 1px dashed var(--ns-border);
+}
+
+.ns-folio-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--ns-teal);
+  color: white;
+  padding: 6px 20px;
+  border-radius: 40px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: var(--ns-font-sans);
+  z-index: 5;
+}
+
+.ns-folio-content {
+  padding: 24px;
+}
+
+.ns-folio-content h3 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  font-family: var(--ns-font-display);
+  color: var(--ns-ink);
+  margin-bottom: 16px;
+}
+
+.ns-folio-content p {
+  font-size: 1.05rem;
+  color: var(--ns-ink-light);
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+
+.ns-folio-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.ns-folio-tech span {
+  background: rgba(74, 113, 108, 0.08);
+  color: var(--ns-teal);
+  padding: 6px 18px;
+  border-radius: 40px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--ns-font-sans);
+  border: 1px solid rgba(74, 113, 108, 0.2);
+}
+
+.ns-folio-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.ns-folio-links a {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ns-ink-light);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: color 0.15s ease;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 4px;
+}
+
+.ns-folio-links a i {
+  color: var(--ns-teal);
+}
+
+.ns-folio-links a:hover {
+  color: var(--ns-teal);
+  border-bottom-color: var(--ns-teal);
+}
+
+/* ----- CHAPTER V — HONORS (medals) ----- */
+.ns-medals {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.ns-medal {
+  display: flex;
+  gap: 20px;
+  background: white;
+  padding: 28px;
+  border-radius: 20px;
+  border: 1px solid var(--ns-border);
+  box-shadow: var(--ns-shadow);
+  transition: all 0.25s ease;
+}
+
+.ns-medal:hover {
+  border-color: var(--ns-gold);
+  box-shadow: 0 20px 35px -15px rgba(182,139,64,0.15);
+  transform: translateY(-5px);
+}
+
+.ns-medal-icon {
+  font-size: 2rem;
+  color: var(--ns-gold);
+  flex-shrink: 0;
+}
+
+.ns-medal-content h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: var(--ns-font-serif);
+  margin-bottom: 6px;
+}
+
+.ns-medal-content p {
+  font-size: 0.95rem;
+  color: var(--ns-ink-light);
+  margin-bottom: 8px;
+}
+
+.ns-medal-date {
+  font-family: var(--ns-font-mono);
+  font-size: 0.8rem;
+  color: var(--ns-ink-muted);
+}
+
+/* ----- EPILOGUE ----- */
+.ns-epilogue {
+  padding: 120px 0 80px;
+  background: #1c1917;
+  color: white;
+  text-align: center;
+}
+
+.ns-epilogue-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.ns-epilogue-label {
+  font-family: var(--ns-font-sans);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  color: rgba(255,255,255,0.5);
+  display: block;
+  margin-bottom: 24px;
+}
+
+.ns-epilogue h2 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  font-family: var(--ns-font-display);
+  color: white;
+  margin-bottom: 24px;
+}
+
+.ns-epilogue p {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 48px;
+}
+
+.ns-epilogue-contact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.ns-contact-link {
+  color: white;
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  transition: color 0.15s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.ns-contact-link i {
+  color: var(--ns-gold);
+}
+
+.ns-contact-link:hover {
+  color: var(--ns-gold);
+  border-bottom-color: var(--ns-gold);
+}
+
+.ns-epilogue-social {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.ns-epilogue-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  color: white;
+  font-size: 1.4rem;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.ns-epilogue-social a:hover {
+  background: var(--ns-gold);
+  color: white;
+  transform: translateY(-5px);
+  border-color: var(--ns-gold);
+}
+
+.ns-colophon {
+  margin-top: 80px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-family: var(--ns-font-sans);
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* ----- RESPONSIVE ----- */
+@media (max-width: 900px) {
+  .ns-nav-track { gap: 16px; font-size: 0.7rem; }
+  .ns-prologue-grid { grid-template-columns: 1fr; gap: 48px; }
+  .ns-folio-piece { grid-template-columns: 1fr; gap: 24px; }
+  .ns-folio-piece:nth-child(even) .ns-folio-media { order: 0; }
+  .ns-chronicle-card { flex-direction: column; }
+  .ns-chronicle-year { border-right: none; border-bottom: 2px solid var(--ns-border); padding-right: 0; padding-bottom: 12px; }
+  .ns-volume { flex-direction: column; }
+  .ns-volume-spine { writing-mode: horizontal-tb; transform: none; width: 100%; height: 40px; }
+  .ns-cover-content h1 { font-size: 4rem; }
+}
+
+@media (max-width: 700px) {
+  .ns-cover-content h1 { font-size: 3.2rem; }
+  .ns-title { font-size: 1.6rem; }
+  .ns-chapter-header h2 { font-size: 2.4rem; }
+  .ns-prologue-text h2 { font-size: 2.8rem; }
+}
+
+@media (max-width: 550px) {
+  .container { padding: 0 24px; }
+  .ns-nav-track { gap: 12px; }
+  .ns-cover { min-height: 600px; }
+  .ns-epilogue h2 { font-size: 2.4rem; }
+}

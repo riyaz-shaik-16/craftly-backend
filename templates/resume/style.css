@@ -1,0 +1,447 @@
+/* ---------- RESUME CLASSIC (structured, professional) ---------- */
+:root {
+  --rc-bg: #ffffff;
+  --rc-surface: #fafbfc;
+  --rc-border: #e2e6e9;
+  --rc-border-strong: #c1c7cd;
+  --rc-text: #1a1e24;
+  --rc-text-light: #5a646e;
+  --rc-text-muted: #7b858f;
+  --rc-primary: #1e3a5f;   /* deep navy */
+  --rc-primary-rgb: 30, 58, 95;
+  --rc-accent: #4f6f8f;
+  --rc-accent-rgb: 79, 111, 143;
+  --rc-font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --rc-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --rc-font-mono: 'JetBrains Mono', 'SF Mono', Monaco, monospace;
+  --rc-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  --rc-radius: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #eef2f5;
+  color: var(--rc-text);
+  font-family: var(--rc-font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  padding: 40px 20px;
+}
+
+.rc-resume {
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: var(--rc-bg);
+  border-radius: 12px;
+  box-shadow: var(--rc-shadow);
+  padding: 48px 56px;
+  border: 1px solid var(--rc-border);
+}
+
+.rc-container {
+  width: 100%;
+}
+
+/* ----- HEADER ----- */
+.rc-header {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--rc-border);
+  padding-bottom: 32px;
+}
+
+.rc-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px var(--rc-primary), 0 8px 16px rgba(0,0,0,0.05);
+}
+
+.rc-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rc-avatar-placeholder {
+  background: var(--rc-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family: var(--rc-font-serif);
+}
+
+.rc-header-info {
+  flex: 1;
+}
+
+.rc-header-info h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--rc-text);
+  margin-bottom: 8px;
+  font-family: var(--rc-font-serif);
+}
+
+.rc-title {
+  font-size: 1.4rem;
+  font-weight: 450;
+  color: var(--rc-primary);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.rc-summary {
+  font-size: 1.05rem;
+  color: var(--rc-text-light);
+  max-width: 700px;
+  line-height: 1.5;
+}
+
+/* ----- CONTACT ROW ----- */
+.rc-contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  padding-bottom: 28px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--rc-border);
+  color: var(--rc-text-light);
+  font-size: 0.95rem;
+}
+
+.rc-contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rc-contact-item i {
+  width: 18px;
+  color: var(--rc-primary);
+}
+
+.rc-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rc-text-light);
+  font-size: 1.1rem;
+  transition: color 0.15s ease;
+  text-decoration: none;
+}
+
+.rc-social-link:hover {
+  color: var(--rc-primary);
+}
+
+/* ----- GRID (two‑column) ----- */
+.rc-grid {
+  display: grid;
+  grid-template-columns: 1fr 2.2fr;
+  gap: 48px;
+  margin-top: 8px;
+}
+
+/* ----- SIDEBAR (left) ----- */
+.rc-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.rc-block {
+  break-inside: avoid;
+}
+
+.rc-block h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--rc-primary);
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--rc-primary);
+  padding-bottom: 8px;
+  font-family: var(--rc-font-sans);
+}
+
+/* Skills */
+.rc-skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rc-skill-item {
+  background-color: rgba(var(--rc-primary-rgb), 0.06);
+  color: var(--rc-primary);
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid rgba(var(--rc-primary-rgb), 0.15);
+}
+
+/* Education */
+.rc-edu-entry {
+  margin-bottom: 20px;
+}
+
+.rc-edu-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--rc-text);
+}
+
+.rc-edu-meta {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--rc-accent);
+  margin: 4px 0;
+}
+
+.rc-edu-date {
+  font-size: 0.8rem;
+  color: var(--rc-text-muted);
+  font-family: var(--rc-font-mono);
+}
+
+/* Certifications */
+.rc-cert-entry {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 18px;
+  align-items: center;
+}
+
+.rc-cert-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f4f6f9;
+  flex-shrink: 0;
+}
+
+.rc-cert-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rc-cert-info {
+  flex: 1;
+}
+
+.rc-cert-name {
+  font-weight: 700;
+  color: var(--rc-text);
+  font-size: 0.95rem;
+}
+
+.rc-cert-issuer {
+  font-size: 0.8rem;
+  color: var(--rc-text-muted);
+}
+
+/* ----- MAIN (right) ----- */
+.rc-main {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* Experience */
+.rc-exp-entry {
+  margin-bottom: 28px;
+}
+
+.rc-exp-header {
+  margin-bottom: 8px;
+}
+
+.rc-exp-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--rc-text);
+  display: inline-block;
+  margin-right: 12px;
+}
+
+.rc-exp-company {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--rc-primary);
+  display: inline-block;
+}
+
+.rc-exp-date {
+  font-size: 0.85rem;
+  color: var(--rc-text-muted);
+  font-family: var(--rc-font-mono);
+  margin-top: 4px;
+}
+
+.rc-exp-description {
+  font-size: 0.95rem;
+  color: var(--rc-text-light);
+  margin-left: 0;
+  line-height: 1.5;
+}
+
+/* Projects */
+.rc-project-entry {
+  margin-bottom: 30px;
+  padding-bottom: 24px;
+  border-bottom: 1px dashed var(--rc-border);
+}
+
+.rc-project-entry:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.rc-project-header {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.rc-project-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--rc-text);
+}
+
+.rc-featured-badge {
+  background-color: #fbbf24;
+  color: #000;
+  padding: 4px 12px;
+  border-radius: 30px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.rc-project-description {
+  font-size: 0.95rem;
+  color: var(--rc-text-light);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.rc-project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.rc-tech-tag {
+  background-color: rgba(var(--rc-accent-rgb), 0.08);
+  color: var(--rc-accent);
+  padding: 4px 14px;
+  border-radius: 30px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.rc-project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.rc-project-links a {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--rc-text-light);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.rc-project-links a i {
+  color: var(--rc-primary);
+}
+
+.rc-project-links a:hover {
+  color: var(--rc-primary);
+  text-decoration: underline;
+}
+
+/* Achievements */
+.rc-achievement-entry {
+  margin-bottom: 22px;
+}
+
+.rc-achievement-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--rc-text);
+  margin-bottom: 4px;
+}
+
+.rc-achievement-description {
+  font-size: 0.9rem;
+  color: var(--rc-text-light);
+  margin-bottom: 6px;
+}
+
+.rc-achievement-date {
+  font-size: 0.8rem;
+  color: var(--rc-text-muted);
+  font-family: var(--rc-font-mono);
+}
+
+/* ----- FOOTER ----- */
+.rc-footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 2px solid var(--rc-border);
+  text-align: center;
+  color: var(--rc-text-muted);
+  font-size: 0.85rem;
+  font-family: var(--rc-font-sans);
+}
+
+/* ----- RESPONSIVE ----- */
+@media (max-width: 900px) {
+  .rc-resume { padding: 32px; }
+  .rc-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+
+@media (max-width: 700px) {
+  .rc-header { flex-direction: column; text-align: center; }
+  .rc-header-info { text-align: center; }
+  .rc-contact-row { justify-content: center; }
+}
+
+@media (max-width: 550px) {
+  .rc-resume { padding: 24px; }
+  .rc-header-info h1 { font-size: 2.4rem; }
+  .rc-title { font-size: 1.2rem; }
+  .rc-contact-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+}

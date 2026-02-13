@@ -1,13 +1,34 @@
 import express from "express";
 import { protect } from "../middlewares/auth.middleware.js";
-import { savePortfolio } from "../controllers/portfolio.controller.js";
+import upload from "../middlewares/multer.middleware.js";
+import {
+  getPortfolio,
+  savePortfolio,
+  updateTemplate,
+  updateTheme
+} from "../controllers/portfolio.controller.js";
 
 const router = express.Router();
+router.post(
+  "/",
+  protect,
+  upload.any(),   
+  savePortfolio
+);
+router.post(
+  "/update-theme",
+  protect,
+  updateTheme
+);
 
-/*
-  POST /portfolio
-  Save or update portfolio (draft)
-*/
-router.post("/", protect, savePortfolio);
+
+router.post(
+  "/update-template",
+  protect,
+  updateTemplate
+);
+
+
+router.get("/", protect, getPortfolio);
 
 export default router;

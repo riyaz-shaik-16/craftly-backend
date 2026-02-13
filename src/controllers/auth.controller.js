@@ -1,45 +1,46 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
-import { registerSchema, loginSchema } from "../validations/auth.schema.js";
-import { generateToken } from "../utils/jwt.js"
+import { generateToken } from "../utils/jwt.js";
 
+/* -------------------------------------------------
+   Register
+------------------------------------------------- */
 export const register = async (req, res, next) => {
   try {
-    // Validate input
-    const parsed = registerSchema.safeParse(req.body);
-    if (!parsed.success) {
-      res.status(400);
-      throw new Error(parsed.error.errors[0].message);
+    const { fullName, email, username, password } = req.body;
+
+    if (!fullName || !email || !username || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
     }
 
-    const { fullName, email, username, password } = parsed.data;
-
-    // Check email
     const existingEmail = await User.findOne({ email });
     if (existingEmail) {
-      res.status(409);
-      throw new Error("Email already registered");
+      return res.status(409).json({
+        success: false,
+        message: "Email already registered",
+      });
     }
 
-    // Check username
     const existingUsername = await User.findOne({ username });
     if (existingUsername) {
-      res.status(409);
-      throw new Error("Username already taken");
+      return res.status(409).json({
+        success: false,
+        message: "Username already taken",
+      });
     }
 
-    // Hash password
     const passwordHash = await bcrypt.hash(password, 10);
 
-    // Create user
     const user = await User.create({
       fullName,
       email,
       username,
-      passwordHash
+      passwordHash,
     });
 
-    // Issue token
     const token = generateToken(user._id);
 
     res.status(201).json({
@@ -49,43 +50,42 @@ export const register = async (req, res, next) => {
         id: user._id,
         fullName: user.fullName,
         email: user.email,
-        username: user.username
-      }
+        username: user.username,
+      },
     });
   } catch (error) {
     next(error);
   }
 };
 
-/* -------------------------------------------------
-   Login
-------------------------------------------------- */
 export const login = async (req, res, next) => {
   try {
-    // Validate input
-    const parsed = loginSchema.safeParse(req.body);
-    if (!parsed.success) {
-      res.status(400);
-      throw new Error(parsed.error.errors[0].message);
+    const { email, password } = req.body;
+
+    
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required",
+      });
     }
 
-    const { email, password } = parsed.data;
-
-    // Find user
     const user = await User.findOne({ email });
     if (!user) {
-      res.status(401);
-      throw new Error("Invalid email or password");
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
     }
 
-    // Compare password
     const isMatch = await bcrypt.compare(password, user.passwordHash);
     if (!isMatch) {
-      res.status(401);
-      throw new Error("Invalid email or password");
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
     }
 
-    // Issue token
     const token = generateToken(user._id);
 
     res.status(200).json({
@@ -95,8 +95,8 @@ export const login = async (req, res, next) => {
         id: user._id,
         email: user.email,
         username: user.username,
-        fullName:user.fullName
-      }
+        fullName: user.fullName,
+      },
     });
   } catch (error) {
     next(error);

@@ -1,0 +1,233 @@
+{{!-- HERO — collage chaos, beautiful mess --}}
+<section class="cd-hero">
+  <div class="cd-hero-backdrop">
+    <div class="cd-blob cd-blob-1"></div>
+    <div class="cd-blob cd-blob-2"></div>
+    <div class="cd-dots"></div>
+  </div>
+  <div class="container">
+    <div class="cd-hero-grid">
+      {{!-- left: floating portrait --}}
+      <div class="cd-hero-visual">
+        <div class="cd-frame-stack">
+          {{#if personal.avatar}}
+          <img src="{{personal.avatar}}" alt="{{personal.name}}" class="cd-avatar">
+          {{else}}
+          <div class="cd-avatar-placeholder">{{firstLetter personal.name}}</div>
+          {{/if}}
+          <div class="cd-frame-badge">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <div class="cd-frame-corner"></div>
+        </div>
+        <div class="cd-float-shape"></div>
+      </div>
+
+      {{!-- right: graffiti text --}}
+      <div class="cd-hero-text">
+        <span class="cd-greeting">✨ hey, i'm</span>
+        <h1>{{personal.name}}</h1>
+        <div class="cd-title">{{personal.title}}</div>
+        <div class="cd-squiggle"></div>
+        <p class="cd-bio">{{personal.summary}}</p>
+
+        <div class="cd-contact-pills">
+          {{#if personal.email}}
+          <span class="cd-pill"><i class="fas fa-envelope"></i> {{personal.email}}</span>
+          {{/if}}
+          {{#if personal.phone}}
+          <span class="cd-pill"><i class="fas fa-phone-alt"></i> {{personal.phone}}</span>
+          {{/if}}
+          {{#if personal.location}}
+          <span class="cd-pill"><i class="fas fa-map-marker-alt"></i> {{personal.location}}</span>
+          {{/if}}
+        </div>
+
+        {{#if socialLinks.length}}
+        <div class="cd-social-dance">
+          {{#each socialLinks}}
+          <a href="{{this.url}}" target="_blank" rel="noopener" class="cd-social-icon" aria-label="{{this.platform}}">
+            {{#if (eq this.platform "website")}}
+            <i class="fas fa-globe"></i>
+            {{else}}
+            <i class="fab fa-{{this.platform}}"></i>
+            {{/if}}
+          </a>
+          {{/each}}
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+
+{{!-- PROJECTS — gallery of experiments, no two cards alike --}}
+{{#if projects.length}}
+<section class="cd-projects">
+  <div class="container">
+    <div class="cd-section-head">
+      <h2>✨ playlab</h2>
+      <div class="cd-stamp">selected work</div>
+    </div>
+
+    <div class="cd-gallery">
+      {{#each projects}}
+      <div class="cd-gallery-item cd-item-{{@index}}">
+        <div class="cd-item-inner">
+          {{#if this.images.length}}
+          <div class="cd-item-media">
+            <img src="{{this.images.[0]}}" alt="{{this.title}}">
+            {{#if this.featured}}
+            <span class="cd-flag"><i class="fas fa-star"></i></span>
+            {{/if}}
+          </div>
+          {{/if}}
+          <div class="cd-item-info">
+            <h3>{{this.title}}</h3>
+            <p>{{this.description}}</p>
+            {{#if this.techStack.length}}
+            <div class="cd-tags">
+              {{#each this.techStack}}
+              <span class="cd-tag">{{this}}</span>
+              {{/each}}
+            </div>
+            {{/if}}
+            <div class="cd-item-actions">
+              {{#if this.githubLink}}<a href="{{this.githubLink}}" target="_blank"><i class="fab fa-github"></i></a>{{/if}}
+              {{#if this.demoLink}}<a href="{{this.demoLink}}" target="_blank"><i class="fas fa-play-circle"></i></a>{{/if}}
+              {{#if this.liveLink}}<a href="{{this.liveLink}}" target="_blank"><i class="fas fa-external-link-alt"></i></a>{{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- EXPERIENCE — timeline as a winding path --}}
+{{#if experience.length}}
+<section class="cd-experience">
+  <div class="container">
+    <div class="cd-section-head">
+      <h2>🗺️ path</h2>
+      <div class="cd-stamp">winding road</div>
+    </div>
+    <div class="cd-path">
+      {{#each experience}}
+      <div class="cd-path-node">
+        <div class="cd-node-marker">
+          <i class="fas fa-briefcase"></i>
+          <div class="cd-node-line"></div>
+        </div>
+        <div class="cd-node-content">
+          <div class="cd-node-header">
+            <span class="cd-company">{{this.company}}</span>
+            <span class="cd-role">{{this.position}}</span>
+            <span class="cd-date">{{this.startDate}} – {{this.endDate}}</span>
+          </div>
+          <p>{{this.description}}</p>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- SKILLS — messy cloud, organic --}}
+{{#if skills.length}}
+<section class="cd-skills">
+  <div class="container">
+    <div class="cd-section-head">
+      <h2>🧰 toolbox</h2>
+      <div class="cd-stamp">sticky notes</div>
+    </div>
+    <div class="cd-cloud">
+      {{#each skills}}
+      <span class="cd-cloud-item" style="--rot: {{rand -5 5}}deg;">#{{this}}</span>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- EDUCATION — stamp collection --}}
+{{#if education.length}}
+<section class="cd-education">
+  <div class="container">
+    <div class="cd-section-head">
+      <h2>📚 study</h2>
+      <div class="cd-stamp">alma mater</div>
+    </div>
+    <div class="cd-stamp-wall">
+      {{#each education}}
+      <div class="cd-stamp-card">
+        <div class="cd-stamp-icon"><i class="fas fa-graduation-cap"></i></div>
+        <h3>{{this.institution}}</h3>
+        <div class="cd-degree">{{this.degree}}{{#if this.field}}, {{this.field}}{{/if}}</div>
+        <div class="cd-edu-date">{{this.startDate}} – {{this.endDate}}</div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- CERTIFICATIONS — badge wall --}}
+{{#if certifications.length}}
+<section class="cd-certs">
+  <div class="container">
+    <div class="cd-section-head">
+      <h2>🏅 badges</h2>
+      <div class="cd-stamp">earned</div>
+    </div>
+    <div class="cd-badge-wall">
+      {{#each certifications}}
+      <div class="cd-badge">
+        {{#if this.images.length}}
+        <div class="cd-badge-image">
+          <img src="{{this.images.[0]}}" alt="{{this.name}}">
+        </div>
+        {{/if}}
+        <div class="cd-badge-content">
+          <h4>{{this.name}}</h4>
+          <span>{{this.issuer}}</span>
+          <small>{{this.year}}</small>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- ACHIEVEMENTS — trophy shelf --}}
+{{#if achievements.length}}
+<section class="cd-achievements">
+  <div class="container">
+    <div class="cd-section-head">
+      <h2>🏆 wins</h2>
+      <div class="cd-stamp">trophy shelf</div>
+    </div>
+    <div class="cd-shelf">
+      {{#each achievements}}
+      <div class="cd-trophy">
+        <div class="cd-trophy-icon"><i class="fas fa-trophy"></i></div>
+        <h3>{{this.title}}</h3>
+        <p>{{this.description}}</p>
+        <div class="cd-trophy-date">{{this.date}}</div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+<footer class="cd-footer">
+  <div class="container">
+    <p>© {{personal.name}} · designed with ❤️ and Craftly</p>
+    <div class="cd-footprint"></div>
+  </div>
+</footer>

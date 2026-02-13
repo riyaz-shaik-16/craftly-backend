@@ -1,0 +1,498 @@
+/* ---------- CORPORATE EXECUTIVE — formal, leadership, boardroom ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap');
+
+:root {
+  --ce-navy: #0a2342;
+  --ce-navy-rgb: 10, 35, 66;
+  --ce-gold: #c9a959;
+  --ce-gold-rgb: 201, 169, 89;
+  --ce-burgundy: #6b2d38;
+  --ce-cream: #faf9f7;
+  --ce-white: #ffffff;
+  --ce-gray-light: #e9e7e2;
+  --ce-gray: #a6a6a6;
+  --ce-gray-dark: #5c5c5c;
+  --ce-text-dark: #1e1e1e;
+  --ce-text-light: #5a5a5a;
+  --ce-border: #d8d4cd;
+  --ce-shadow: 0 15px 30px -10px rgba(0,0,0,0.03);
+  --ce-font-serif: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
+  --ce-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ce-font-display: 'Playfair Display', var(--ce-font-serif);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--ce-cream);
+  color: var(--ce-text-dark);
+  font-family: var(--ce-font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  padding: 40px 20px;
+}
+
+.ce-executive {
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: var(--ce-white);
+  box-shadow: var(--ce-shadow);
+  border: 1px solid var(--ce-border);
+}
+
+.ce-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: var(--ce-white);
+}
+
+/* ----- LEFT SIDEBAR (30%) ----- */
+.ce-sidebar {
+  width: 33.333%;
+  background-color: var(--ce-navy);
+  color: white;
+  padding: 48px 32px;
+}
+
+.ce-main {
+  width: 66.666%;
+  padding: 48px 48px;
+  background-color: var(--ce-white);
+}
+
+/* ----- PROFILE SECTION (sidebar) ----- */
+.ce-profile {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.ce-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 24px;
+  border: 3px solid var(--ce-gold);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.ce-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ce-avatar-placeholder {
+  background: var(--ce-gold);
+  color: var(--ce-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: var(--ce-font-serif);
+}
+
+.ce-profile h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: var(--ce-font-display);
+  color: white;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.ce-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--ce-gold);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.ce-separator {
+  width: 60px;
+  height: 2px;
+  background: var(--ce-gold);
+  margin-top: 8px;
+}
+
+/* ----- BLOCKS (sidebar) ----- */
+.ce-block {
+  margin-bottom: 40px;
+}
+
+.ce-sidebar .ce-block h2 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--ce-gold);
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  padding-bottom: 12px;
+}
+
+/* Executive summary */
+.ce-summary {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.85);
+  font-weight: 300;
+}
+
+/* Contact */
+.ce-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ce-contact span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.9rem;
+}
+
+.ce-contact i {
+  width: 18px;
+  color: var(--ce-gold);
+}
+
+/* Social links */
+.ce-social {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ce-social-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.15s ease;
+}
+
+.ce-social-link i {
+  width: 18px;
+  color: var(--ce-gold);
+}
+
+.ce-social-link:hover {
+  color: white;
+}
+
+/* Skills (core competencies) */
+.ce-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ce-skill {
+  background: rgba(255,255,255,0.08);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid rgba(255,255,255,0.15);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Education */
+.ce-edu-item {
+  margin-bottom: 20px;
+}
+
+.ce-edu-degree {
+  font-weight: 700;
+  color: white;
+  margin-bottom: 4px;
+  font-size: 1rem;
+}
+
+.ce-edu-school {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 4px;
+}
+
+.ce-edu-date {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+  font-family: var(--ce-font-sans);
+}
+
+/* Certifications */
+.ce-cert-item {
+  margin-bottom: 16px;
+}
+
+.ce-cert-name {
+  font-weight: 600;
+  color: white;
+  margin-bottom: 2px;
+  font-size: 0.95rem;
+}
+
+.ce-cert-issuer {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ----- RIGHT MAIN COLUMN ----- */
+.ce-main .ce-block {
+  margin-bottom: 48px;
+}
+
+.ce-main .ce-block h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--ce-navy);
+  margin-bottom: 28px;
+  border-bottom: 2px solid var(--ce-gold);
+  padding-bottom: 12px;
+  font-family: var(--ce-font-sans);
+}
+
+/* Experience (leadership) */
+.ce-exp-item {
+  margin-bottom: 32px;
+}
+
+.ce-exp-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.ce-exp-position {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ce-navy);
+  font-family: var(--ce-font-serif);
+}
+
+.ce-exp-company {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ce-burgundy);
+  margin-left: 8px;
+}
+
+.ce-exp-date {
+  font-size: 0.85rem;
+  color: var(--ce-gray-dark);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ce-exp-description {
+  font-size: 0.95rem;
+  color: var(--ce-text-light);
+  line-height: 1.7;
+}
+
+/* Strategic initiatives (projects) */
+.ce-project-item {
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--ce-border);
+}
+
+.ce-project-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.ce-project-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.ce-project-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--ce-navy);
+  font-family: var(--ce-font-serif);
+}
+
+.ce-featured-badge {
+  background: var(--ce-gold);
+  color: var(--ce-navy);
+  padding: 4px 14px;
+  border-radius: 30px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ce-project-description {
+  font-size: 0.95rem;
+  color: var(--ce-text-light);
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+
+.ce-project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.ce-tech-tag {
+  background: rgba(10, 35, 66, 0.05);
+  color: var(--ce-navy);
+  padding: 4px 16px;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(10, 35, 66, 0.1);
+}
+
+.ce-project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.ce-project-links a {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ce-text-light);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: color 0.15s ease;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+
+.ce-project-links a i {
+  color: var(--ce-navy);
+}
+
+.ce-project-links a:hover {
+  color: var(--ce-navy);
+  border-bottom-color: var(--ce-gold);
+}
+
+/* Honors & awards */
+.ce-achievement-item {
+  margin-bottom: 24px;
+}
+
+.ce-achievement-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.ce-achievement-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ce-navy);
+}
+
+.ce-achievement-date {
+  font-size: 0.8rem;
+  color: var(--ce-gray-dark);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ce-achievement-description {
+  font-size: 0.9rem;
+  color: var(--ce-text-light);
+  margin-left: 0;
+}
+
+/* ----- FOOTER ----- */
+.ce-footer {
+  width: 100%;
+  padding: 24px 48px;
+  border-top: 1px solid var(--ce-border);
+  background: var(--ce-white);
+  text-align: center;
+}
+
+.ce-footer p {
+  font-size: 0.8rem;
+  color: var(--ce-gray-dark);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 400;
+}
+
+/* ----- RESPONSIVE ----- */
+@media (max-width: 1000px) {
+  .ce-sidebar,
+  .ce-main {
+    width: 100%;
+  }
+  
+  .ce-sidebar {
+    padding: 40px 32px;
+  }
+  
+  .ce-main {
+    padding: 40px 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .ce-exp-header,
+  .ce-project-header,
+  .ce-achievement-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  
+  .ce-exp-company {
+    margin-left: 0;
+  }
+  
+  .ce-avatar {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .ce-profile h1 {
+    font-size: 1.8rem;
+  }
+}

@@ -1,0 +1,271 @@
+{{!-- ONE PAGE STORY — immersive narrative scroll --}}
+<nav class="ns-chapter-nav">
+  <div class="ns-nav-container">
+    <div class="ns-nav-track">
+      <a href="#prologue" class="ns-nav-item">Prologue</a>
+      <a href="#foundation" class="ns-nav-item">I. Foundation</a>
+      <a href="#craft" class="ns-nav-item">II. Craft</a>
+      <a href="#chronicles" class="ns-nav-item">III. Chronicles</a>
+      <a href="#works" class="ns-nav-item">IV. Works</a>
+      <a href="#honors" class="ns-nav-item">V. Honors</a>
+      <a href="#epilogue" class="ns-nav-item">Epilogue</a>
+    </div>
+    <div class="ns-nav-progress"></div>
+  </div>
+</nav>
+
+{{!-- COVER — cinematic title card --}}
+<section class="ns-cover" id="cover">
+  <div class="ns-cover-bg"></div>
+  <div class="container">
+    <div class="ns-cover-content">
+      <div class="ns-epigraph">the story of</div>
+      <h1>{{personal.name}}</h1>
+      <div class="ns-title">{{personal.title}}</div>
+      <div class="ns-cover-line"></div>
+      <div class="ns-cover-quote">{{personal.summary}}</div>
+      <div class="ns-scroll-hint">
+        <span>enter</span>
+        <i class="fas fa-arrow-down"></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{!-- PROLOGUE — the origin, with portrait and pull quote --}}
+<section class="ns-prologue" id="prologue">
+  <div class="container">
+    <div class="ns-prologue-grid">
+      <div class="ns-prologue-text">
+        <span class="ns-chapter-marker">Prologue</span>
+        <h2>The origin</h2>
+        <div class="ns-dropcap">{{firstLetter personal.name}}</div>
+        <p>{{personal.summary}}</p>
+        <div class="ns-pull-quote">
+          <span class="ns-quote-mark">“</span>
+          <span>The arc of a career is not a ladder, but a story.</span>
+        </div>
+        <div class="ns-signature">{{personal.name}}</div>
+      </div>
+      <div class="ns-prologue-image">
+        {{#if personal.avatar}}
+        <img src="{{personal.avatar}}" alt="{{personal.name}}">
+        {{else}}
+        <div class="ns-avatar-placeholder">{{firstLetter personal.name}}</div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
+
+{{!-- CHAPTER I — FOUNDATION (Education) --}}
+{{#if education.length}}
+<section class="ns-chapter" id="foundation" style="--chapter-color: #3b5c7c;">
+  <div class="ns-chapter-header">
+    <div class="container">
+      <span class="ns-chapter-number">Chapter I</span>
+      <h2>Foundation</h2>
+      <div class="ns-chapter-line"></div>
+      <p class="ns-chapter-sub">Where it all began — the places that shaped a mind.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="ns-library">
+      {{#each education}}
+      <div class="ns-volume">
+        <div class="ns-volume-spine" style="background: {{#if @first}}#3b5c7c{{else if @last}}#2c3e50{{else}}#4a6a8a{{/if}};">
+          <span>{{this.startDate}}</span>
+        </div>
+        <div class="ns-volume-content">
+          <h3>{{this.institution}}</h3>
+          <div class="ns-volume-meta">{{this.degree}}{{#if this.field}}, {{this.field}}{{/if}}</div>
+          <div class="ns-volume-date">{{this.startDate}} – {{this.endDate}}</div>
+          {{#if this.description}}
+          <p>{{this.description}}</p>
+          {{/if}}
+          <div class="ns-volume-shelfmark">shelf № {{@index}}</div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- CHAPTER II — CRAFT (Skills) --}}
+{{#if skills.length}}
+<section class="ns-chapter ns-chapter-alt" id="craft" style="--chapter-color: #9c7c3b;">
+  <div class="ns-chapter-header">
+    <div class="container">
+      <span class="ns-chapter-number">Chapter II</span>
+      <h2>Craft</h2>
+      <div class="ns-chapter-line"></div>
+      <p class="ns-chapter-sub">Tools of the trade, collected and honed.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="ns-toolchest">
+      {{#each skills}}
+      <div class="ns-tool-card">
+        <div class="ns-tool-icon">
+          <i class="fas fa-code-branch"></i>
+        </div>
+        <span class="ns-tool-name">{{this}}</span>
+        <div class="ns-tool-shade"></div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- CHAPTER III — CHRONICLES (Experience) --}}
+{{#if experience.length}}
+<section class="ns-chapter" id="chronicles" style="--chapter-color: #6b4e71;">
+  <div class="ns-chapter-header">
+    <div class="container">
+      <span class="ns-chapter-number">Chapter III</span>
+      <h2>Chronicles</h2>
+      <div class="ns-chapter-line"></div>
+      <p class="ns-chapter-sub">A decade of making, leading, learning.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="ns-chronicles">
+      {{#each experience}}
+      <div class="ns-chronicle-card">
+        <div class="ns-chronicle-year">{{this.startDate}}–{{this.endDate}}</div>
+        <div class="ns-chronicle-body">
+          <h3>{{this.position}}</h3>
+          <div class="ns-chronicle-company">{{this.company}}</div>
+          <p>{{this.description}}</p>
+          <div class="ns-chronicle-footnote">{{this.startDate}} – {{this.endDate}}</div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- CHAPTER IV — WORKS (Projects) --}}
+{{#if projects.length}}
+<section class="ns-chapter ns-chapter-alt" id="works" style="--chapter-color: #4a716c;">
+  <div class="ns-chapter-header">
+    <div class="container">
+      <span class="ns-chapter-number">Chapter IV</span>
+      <h2>Works</h2>
+      <div class="ns-chapter-line"></div>
+      <p class="ns-chapter-sub">Things built, problems solved, stories told.</p>
+    </div>
+  </div>
+  <div class="ns-folio">
+    {{#each projects}}
+    <div class="ns-folio-piece">
+      <div class="ns-folio-media">
+        {{#if this.images.length}}
+        <img src="{{this.images.[0]}}" alt="{{this.title}}">
+        {{else}}
+        <div class="ns-folio-placeholder"></div>
+        {{/if}}
+        {{#if this.featured}}
+        <span class="ns-folio-badge">selected</span>
+        {{/if}}
+      </div>
+      <div class="ns-folio-content">
+        <h3>{{this.title}}</h3>
+        <p>{{this.description}}</p>
+        {{#if this.techStack.length}}
+        <div class="ns-folio-tech">
+          {{#each this.techStack}}
+          <span>{{this}}</span>
+          {{/each}}
+        </div>
+        {{/if}}
+        <div class="ns-folio-links">
+          {{#if this.githubLink}}<a href="{{this.githubLink}}" target="_blank"><i class="fab fa-github"></i> source</a>{{/if}}
+          {{#if this.demoLink}}<a href="{{this.demoLink}}" target="_blank"><i class="fas fa-play-circle"></i> demo</a>{{/if}}
+          {{#if this.liveLink}}<a href="{{this.liveLink}}" target="_blank"><i class="fas fa-external-link-alt"></i> live</a>{{/if}}
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</section>
+{{/if}}
+
+{{!-- CHAPTER V — HONORS (Achievements & Certifications) --}}
+{{#if achievements.length}}{{#if certifications.length}}
+<section class="ns-chapter" id="honors" style="--chapter-color: #b68b40;">
+  <div class="ns-chapter-header">
+    <div class="container">
+      <span class="ns-chapter-number">Chapter V</span>
+      <h2>Honors</h2>
+      <div class="ns-chapter-line"></div>
+      <p class="ns-chapter-sub">Recognition, milestones, and quiet victories.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="ns-medals">
+      {{#each achievements}}
+      <div class="ns-medal">
+        <div class="ns-medal-icon"><i class="fas fa-trophy"></i></div>
+        <div class="ns-medal-content">
+          <h4>{{this.title}}</h4>
+          <p>{{this.description}}</p>
+          <div class="ns-medal-date">{{this.date}}</div>
+        </div>
+      </div>
+      {{/each}}
+      {{#each certifications}}
+      <div class="ns-medal">
+        <div class="ns-medal-icon"><i class="fas fa-certificate"></i></div>
+        <div class="ns-medal-content">
+          <h4>{{this.name}}</h4>
+          <p>{{this.issuer}}</p>
+          <div class="ns-medal-date">{{this.year}}</div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}{{/if}}
+
+{{!-- EPILOGUE — what's next --}}
+<section class="ns-epilogue" id="epilogue">
+  <div class="container">
+    <div class="ns-epilogue-content">
+      <span class="ns-epilogue-label">Epilogue</span>
+      <h2>What's next?</h2>
+      <p>The story continues. Let's write the next chapter together.</p>
+      <div class="ns-epilogue-contact">
+        {{#if personal.email}}
+        <a href="mailto:{{personal.email}}" class="ns-contact-link"><i class="fas fa-envelope"></i> {{personal.email}}</a>
+        {{/if}}
+        {{#if personal.phone}}
+        <span class="ns-contact-link"><i class="fas fa-phone-alt"></i> {{personal.phone}}</span>
+        {{/if}}
+        {{#if personal.location}}
+        <span class="ns-contact-link"><i class="fas fa-map-marker-alt"></i> {{personal.location}}</span>
+        {{/if}}
+      </div>
+      <div class="ns-epilogue-social">
+        {{#each socialLinks}}
+        <a href="{{this.url}}" target="_blank" rel="noopener" aria-label="{{this.platform}}">
+          {{#if (eq this.platform "website")}}
+          <i class="fas fa-globe"></i>
+          {{else}}
+          <i class="fab fa-{{this.platform}}"></i>
+          {{/if}}
+        </a>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  <div class="ns-colophon">
+    <div class="container">
+      <p>© {{personal.name}} — a narrative portfolio, crafted with Craftly</p>
+    </div>
+  </div>
+</section>

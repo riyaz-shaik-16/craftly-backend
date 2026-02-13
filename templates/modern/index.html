@@ -1,219 +1,219 @@
-<header class="hero">
+{{!-- HERO / PERSONAL --}}
+<section class="hero">
   <div class="container">
     <div class="hero-content">
+      <div class="hero-text">
+        <h1>{{personal.name}}</h1>
+        <div class="title">{{personal.title}}</div>
+        <p class="bio">{{personal.summary}}</p>
 
-      {{#if personal.avatar}}
-      <img src="{{personal.avatar}}" alt="{{personal.name}}" class="avatar">
-      {{/if}}
+        <div class="contact-info">
+          {{#if personal.email}}
+          <span><i class="fas fa-envelope"></i> {{personal.email}}</span>
+          {{/if}} {{#if personal.phone}}
+          <span><i class="fas fa-phone-alt"></i> {{personal.phone}}</span>
+          {{/if}} {{#if personal.location}}
+          <span
+            ><i class="fas fa-map-marker-alt"></i> {{personal.location}}</span
+          >
+          {{/if}}
+        </div>
 
-      <h1 class="name">{{personal.name}}</h1>
-      <p class="title">{{personal.title}}</p>
-      <p class="bio">{{personal.bio}}</p>
-
-      <div class="contact-info">
-        {{#if personal.email}}
-        <p>Email: {{personal.email}}</p>
-        {{/if}}
-
-        {{#if personal.phone}}
-        <p>Phone: {{personal.phone}}</p>
-        {{/if}}
-
-        {{#if personal.location}}
-        <p>Location: {{personal.location}}</p>
+        {{!-- SOCIAL LINKS --}} {{#if socialLinks.length}}
+        <div class="social-links">
+          {{#each socialLinks}} {{#if (eq this.platform "website")}}
+          <a
+            href="{{this.url}}"
+            target="_blank"
+            rel="noopener"
+            aria-label="website"
+          >
+            <i class="fas fa-globe"></i>
+          </a>
+          {{else}}
+          <a
+            href="{{this.url}}"
+            target="_blank"
+            rel="noopener"
+            aria-label="{{this.platform}}"
+          >
+            <i class="fab fa-{{this.platform}}"></i>
+          </a>
+          {{/if}} {{/each}}
+        </div>
         {{/if}}
       </div>
 
-      <div class="social-links">
-        {{#if socialLinks.github}}
-        <a href="{{socialLinks.github}}" target="_blank">GitHub</a>
-        {{/if}}
-
-        {{#if socialLinks.linkedin}}
-        <a href="{{socialLinks.linkedin}}" target="_blank">LinkedIn</a>
-        {{/if}}
-
-        {{#if socialLinks.twitter}}
-        <a href="{{socialLinks.twitter}}" target="_blank">Twitter</a>
-        {{/if}}
-
-        {{#if socialLinks.website}}
-        <a href="{{socialLinks.website}}" target="_blank">Website</a>
+      {{!-- AVATAR --}}
+      <div class="hero-avatar">
+        {{#if personal.avatar}}
+        <img src="{{personal.avatar}}" alt="{{personal.name}}" />
+        {{else}}
+        <div class="avatar-placeholder">{{firstLetter personal.name}}</div>
         {{/if}}
       </div>
-
     </div>
   </div>
-</header>
+</section>
 
-
-{{#if projects}}
-<section id="projects">
+{{!-- PROJECTS --}} {{#if projects.length}}
+<section class="projects">
   <div class="container">
     <h2>Projects</h2>
 
-    {{#each projects}}
-    <div class="project">
-
-      {{#if this.featured}}
-      <span>Featured Project</span>
-      {{/if}}
-
-      <h3>{{this.title}}</h3>
-      <p>{{this.description}}</p>
-
-      {{#if this.techStack}}
-      <ul>
-        {{#each this.techStack}}
-        <li>{{this}}</li>
-        {{/each}}
-      </ul>
-      {{/if}}
-
-      <div>
-        {{#if this.githubLink}}
-        <a href="{{this.githubLink}}" target="_blank">GitHub</a>
+    <div class="projects-grid">
+      {{#each projects}}
+      <div class="project-card">
+        {{!-- Images --}} {{#if this.images.length}}
+        <div class="project-images">
+          {{#each this.images}}
+          <img src="{{this}}" alt="Project Image" />
+          {{/each}}
+        </div>
         {{/if}}
 
-        {{#if this.liveLink}}
-        <a href="{{this.liveLink}}" target="_blank">Live Demo</a>
-        {{/if}}
+        <div class="project-content">
+          <div class="project-header">
+            <h3 class="project-title">{{this.title}}</h3>
+
+            {{#if this.featured}}
+            <span class="featured-badge">
+              <i class="fas fa-star"></i> Featured
+            </span>
+            {{/if}}
+          </div>
+
+          <p class="project-description">{{this.description}}</p>
+
+          {{!-- Tech Stack --}} {{#if this.techStack.length}}
+          <div class="tech-stack">
+            {{#each this.techStack}}
+            <span class="tech-badge">{{this}}</span>
+            {{/each}}
+          </div>
+          {{/if}} {{!-- Links --}}
+          <div class="project-links">
+            {{#if this.githubLink}}
+            <a href="{{this.githubLink}}" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            {{/if}} {{#if this.demoLink}}
+            <a href="{{this.demoLink}}" target="_blank" rel="noopener">
+              <i class="fas fa-play-circle"></i> Demo
+            </a>
+            {{/if}} {{#if this.liveLink}}
+            <a href="{{this.liveLink}}" target="_blank" rel="noopener">
+              <i class="fas fa-external-link-alt"></i> Live
+            </a>
+            {{/if}}
+          </div>
+        </div>
       </div>
-
+      {{/each}}
     </div>
-    {{/each}}
-
   </div>
 </section>
-{{/if}}
-
-
-{{#if experience}}
-<section id="experience">
+{{/if}} {{!-- EXPERIENCE --}} {{#if experience.length}}
+<section class="experience">
   <div class="container">
     <h2>Experience</h2>
-
-    {{#each experience}}
-    <div class="experience-item">
-      <h3>{{this.role}}</h3>
-      <p>{{this.company}}</p>
-
-      <p>
-        {{#if this.startDate}}{{this.startDate}}{{/if}}
-        {{#if this.endDate}} - {{this.endDate}}{{/if}}
-        {{#if this.current}} - Present{{/if}}
-      </p>
-
-      <p>{{this.description}}</p>
+    <div class="experience-list">
+      {{#each experience}}
+      <div class="experience-item">
+        <div class="exp-icon">
+          <i class="fas fa-briefcase"></i>
+        </div>
+        <div class="exp-content">
+          <div class="exp-header">
+            <div>
+              <h3 class="exp-company">{{this.company}}</h3>
+              <span class="exp-role">{{this.position}}</span>
+            </div>
+            <div class="exp-date">
+              <span>{{this.startDate}} – {{this.endDate}}</span>
+            </div>
+          </div>
+          <p class="exp-description">{{this.description}}</p>
+        </div>
+      </div>
+      {{/each}}
     </div>
-    {{/each}}
-
   </div>
 </section>
-{{/if}}
-
-
-{{#if skills}}
-<section id="skills">
+{{/if}} {{!-- SKILLS (tag cloud) --}} {{#if skills.length}}
+<section class="skills">
   <div class="container">
     <h2>Skills</h2>
-
-    {{#each skills}}
-    <div class="skill">
-      <h4>{{this.name}}</h4>
-
-      {{#if this.category}}
-      <p>Category: {{this.category}}</p>
-      {{/if}}
-
-      {{#if this.level}}
-      <p>Level: {{this.level}} / 5</p>
-      {{/if}}
+    <div class="skills-cloud">
+      {{#each skills}}
+      <span class="skill-tag">{{this}}</span>
+      {{/each}}
     </div>
-    {{/each}}
-
   </div>
 </section>
-{{/if}}
-
-
-{{#if education}}
-<section id="education">
+{{/if}} {{!-- EDUCATION --}} {{#if education.length}}
+<section class="education">
   <div class="container">
     <h2>Education</h2>
-
-    {{#each education}}
-    <div class="education-item">
-      <h3>{{this.degree}}</h3>
-      <p>{{this.institution}}</p>
-
-      {{#if this.field}}
-      <p>{{this.field}}</p>
-      {{/if}}
-
-      <p>
-        {{#if this.startDate}}{{this.startDate}}{{/if}}
-        {{#if this.endDate}} - {{this.endDate}}{{/if}}
-      </p>
+    <div class="education-grid">
+      {{#each education}}
+      <div class="edu-card">
+        <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+        <h3 class="edu-institution">{{this.institution}}</h3>
+        <div class="edu-degree">
+          {{this.degree}}{{#if this.field}}, {{this.field}}{{/if}}
+        </div>
+        <div class="edu-date">{{this.startDate}} – {{this.endDate}}</div>
+      </div>
+      {{/each}}
     </div>
-    {{/each}}
-
   </div>
 </section>
-{{/if}}
-
-
-{{#if certifications}}
-<section id="certifications">
+{{#if certifications.length}}
+<section class="certifications">
   <div class="container">
     <h2>Certifications</h2>
 
     {{#each certifications}}
-    <div class="certification-item">
-      <h3>{{this.name}}</h3>
-      <p>{{this.issuer}}</p>
-
-      {{#if this.issueDate}}
-      <p>Issued: {{this.issueDate}}</p>
+    <div class="cert-card">
+      {{#if this.images.length}}
+      <div class="cert-images">
+        {{#each this.images}}
+        <img src="{{this}}" alt="Certificate Image" />
+        {{/each}}
+      </div>
       {{/if}}
 
-      {{#if this.credentialUrl}}
-      <a href="{{this.credentialUrl}}" target="_blank">View Credential</a>
-      {{/if}}
+      <div class="cert-content">
+        <h3 class="cert-name">{{this.name}}</h3>
+        <div class="cert-issuer">{{this.issuer}}</div>
+        <div class="cert-year">{{this.year}}</div>
+      </div>
     </div>
     {{/each}}
-
   </div>
 </section>
-{{/if}}
-
-
-{{#if achievements}}
-<section id="achievements">
+{{/if}} 
+{{/if}} {{!-- ACHIEVEMENTS --}} {{#if achievements.length}}
+<section class="achievements">
   <div class="container">
     <h2>Achievements</h2>
-
-    {{#each achievements}}
-    <div class="achievement-item">
-      <h3>{{this.title}}</h3>
-      <p>{{this.description}}</p>
-
-      {{#if this.date}}
-      <p>{{this.date}}</p>
-      {{/if}}
+    <div class="achievements-grid">
+      {{#each achievements}}
+      <div class="achievement-card">
+        <div class="achievement-icon"><i class="fas fa-trophy"></i></div>
+        <h3 class="achievement-title">{{this.title}}</h3>
+        <p class="achievement-desc">{{this.description}}</p>
+        <div class="achievement-date">{{this.date}}</div>
+      </div>
+      {{/each}}
     </div>
-    {{/each}}
-
   </div>
 </section>
 {{/if}}
 
-
-<footer>
+<footer class="portfolio-footer">
   <div class="container">
-    <p>
-      © {{personal.name}}
-      {{#if personal.email}} • {{personal.email}}{{/if}}
-    </p>
+    <p>© {{personal.name}} · built with Craftly!</p>
   </div>
 </footer>

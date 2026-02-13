@@ -1,0 +1,175 @@
+{{!-- CORPORATE EXECUTIVE — formal, leadership-focused, two-column boardroom style --}}
+<section class="ce-executive">
+  <div class="ce-container">
+    {{!-- LEFT COLUMN — profile, contact, credentials --}}
+    <div class="ce-sidebar">
+      {{!-- Avatar and name --}}
+      <div class="ce-profile">
+        {{#if personal.avatar}}
+        <div class="ce-avatar">
+          <img src="{{personal.avatar}}" alt="{{personal.name}}">
+        </div>
+        {{else}}
+        <div class="ce-avatar ce-avatar-placeholder">{{firstLetter personal.name}}</div>
+        {{/if}}
+        <h1>{{personal.name}}</h1>
+        <div class="ce-title">{{personal.title}}</div>
+        <div class="ce-separator"></div>
+      </div>
+
+      {{!-- Executive summary --}}
+      {{#if personal.summary}}
+      <div class="ce-block">
+        <h2>Executive Profile</h2>
+        <p class="ce-summary">{{personal.summary}}</p>
+      </div>
+      {{/if}}
+
+      {{!-- Contact --}}
+      <div class="ce-block">
+        <h2>Contact</h2>
+        <div class="ce-contact">
+          {{#if personal.email}}
+          <span><i class="fas fa-envelope"></i> {{personal.email}}</span>
+          {{/if}}
+          {{#if personal.phone}}
+          <span><i class="fas fa-phone-alt"></i> {{personal.phone}}</span>
+          {{/if}}
+          {{#if personal.location}}
+          <span><i class="fas fa-map-marker-alt"></i> {{personal.location}}</span>
+          {{/if}}
+        </div>
+      </div>
+
+      {{!-- Social / Professional Links --}}
+      {{#if socialLinks.length}}
+      <div class="ce-block">
+        <h2>Professional</h2>
+        <div class="ce-social">
+          {{#each socialLinks}}
+          <a href="{{this.url}}" target="_blank" rel="noopener" class="ce-social-link">
+            {{#if (eq this.platform "website")}}
+            <i class="fas fa-globe"></i> Website
+            {{else}}
+            <i class="fab fa-{{this.platform}}"></i> {{capitalize this.platform}}
+            {{/if}}
+          </a>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+
+      {{!-- Skills (core competencies) --}}
+      {{#if skills.length}}
+      <div class="ce-block">
+        <h2>Core Competencies</h2>
+        <div class="ce-skills">
+          {{#each skills}}
+          <span class="ce-skill">{{this}}</span>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+
+      {{!-- Education --}}
+      {{#if education.length}}
+      <div class="ce-block">
+        <h2>Education</h2>
+        {{#each education}}
+        <div class="ce-edu-item">
+          <div class="ce-edu-degree">{{this.degree}}{{#if this.field}}, {{this.field}}{{/if}}</div>
+          <div class="ce-edu-school">{{this.institution}}</div>
+          <div class="ce-edu-date">{{this.startDate}} – {{this.endDate}}</div>
+        </div>
+        {{/each}}
+      </div>
+      {{/if}}
+
+      {{!-- Certifications --}}
+      {{#if certifications.length}}
+      <div class="ce-block">
+        <h2>Certifications</h2>
+        {{#each certifications}}
+        <div class="ce-cert-item">
+          <div class="ce-cert-name">{{this.name}}</div>
+          <div class="ce-cert-issuer">{{this.issuer}} · {{this.year}}</div>
+        </div>
+        {{/each}}
+      </div>
+      {{/if}}
+    </div>
+
+    {{!-- RIGHT COLUMN — leadership experience, projects, achievements --}}
+    <div class="ce-main">
+      {{!-- Experience (leadership roles) --}}
+      {{#if experience.length}}
+      <div class="ce-block">
+        <h2>Leadership Experience</h2>
+        {{#each experience}}
+        <div class="ce-exp-item">
+          <div class="ce-exp-header">
+            <span class="ce-exp-position">{{this.position}}</span>
+            <span class="ce-exp-company">{{this.company}}</span>
+            <span class="ce-exp-date">{{this.startDate}} – {{this.endDate}}</span>
+          </div>
+          <p class="ce-exp-description">{{this.description}}</p>
+        </div>
+        {{/each}}
+      </div>
+      {{/if}}
+
+      {{!-- Projects (strategic initiatives) --}}
+      {{#if projects.length}}
+      <div class="ce-block">
+        <h2>Strategic Initiatives</h2>
+        {{#each projects}}
+        <div class="ce-project-item">
+          <div class="ce-project-header">
+            <span class="ce-project-title">{{this.title}}</span>
+            {{#if this.featured}}
+            <span class="ce-featured-badge"><i class="fas fa-star"></i> Featured</span>
+            {{/if}}
+          </div>
+          <p class="ce-project-description">{{this.description}}</p>
+          {{#if this.techStack.length}}
+          <div class="ce-project-tech">
+            {{#each this.techStack}}
+            <span class="ce-tech-tag">{{this}}</span>
+            {{/each}}
+          </div>
+          {{/if}}
+          <div class="ce-project-links">
+            {{#if this.githubLink}}<a href="{{this.githubLink}}" target="_blank"><i class="fab fa-github"></i> GitHub</a>{{/if}}
+            {{#if this.demoLink}}<a href="{{this.demoLink}}" target="_blank"><i class="fas fa-play-circle"></i> Demo</a>{{/if}}
+            {{#if this.liveLink}}<a href="{{this.liveLink}}" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>{{/if}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      {{/if}}
+
+      {{!-- Achievements (honors, awards) --}}
+      {{#if achievements.length}}
+      <div class="ce-block">
+        <h2>Honors & Awards</h2>
+        {{#each achievements}}
+        <div class="ce-achievement-item">
+          <div class="ce-achievement-header">
+            <span class="ce-achievement-title">{{this.title}}</span>
+            <span class="ce-achievement-date">{{this.date}}</span>
+          </div>
+          <p class="ce-achievement-description">{{this.description}}</p>
+        </div>
+        {{/each}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
+
+  {{!-- FOOTER — discreet --}}
+  <footer class="ce-footer">
+    <div class="ce-container">
+      <p>© {{personal.name}} · Executive Portfolio · Craftly</p>
+    </div>
+  </footer>
+</section>

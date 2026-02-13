@@ -1,0 +1,806 @@
+/* ---------- DEVELOPER TERMINAL — ENHANCED MATRIX EDITION ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap');
+
+:root {
+  --dt-bg: #0c0c0c;
+  --dt-black: #0a0e0a;
+  --dt-green: #33ff33;
+  --dt-green-dim: #1c7a1c;
+  --dt-green-dark: #0a3a0a;
+  --dt-amber: #ffb86b;
+  --dt-cyan: #66ffff;
+  --dt-magenta: #ff66cc;
+  --dt-prompt: #ffff33;
+  --dt-prompt-dim: #aaaa33;
+  --dt-text: #c3ffc3;
+  --dt-text-dim: #33aa33;
+  --dt-border: #1f4f1f;
+  --dt-glow: 0 0 10px rgba(51, 255, 51, 0.5);
+  --dt-font-mono: 'Share Tech Mono', 'VT323', 'Courier New', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #030703;
+  background-image: radial-gradient(rgba(51, 255, 51, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  font-family: var(--dt-font-mono);
+  padding: 30px 20px;
+  color: var(--dt-text);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ----- MATRIX RAIN BACKGROUND ----- */
+.dt-matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(10, 30, 10, 0.9), rgba(0, 10, 0, 0.95));
+  z-index: -2;
+}
+
+.dt-matrix-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(0deg, 
+    rgba(51, 255, 51, 0.03) 0px, 
+    transparent 1px,
+    transparent 2px);
+  pointer-events: none;
+  z-index: -1;
+  animation: matrix-rain 20s linear infinite;
+}
+
+@keyframes matrix-rain {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+/* ----- CRT EFFECTS ----- */
+.dt-crt {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.dt-scanline {
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(0deg, 
+    rgba(0, 0, 0, 0) 0px, 
+    rgba(0, 255, 0, 0.03) 1px, 
+    rgba(0, 0, 0, 0.1) 2px);
+  animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+.dt-interlacing {
+  background: repeating-linear-gradient(0deg, 
+    rgba(0, 0, 0, 0.1) 0px, 
+    rgba(255, 255, 255, 0.02) 1px, 
+    rgba(0, 0, 0, 0.1) 2px);
+  opacity: 0.1;
+}
+
+.dt-glow {
+  box-shadow: inset 0 0 50px rgba(0, 255, 0, 0.05);
+}
+
+/* ----- MAIN TERMINAL WINDOW ----- */
+.dt-window {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: rgba(8, 16, 8, 0.95);
+  backdrop-filter: blur(2px);
+  border: 2px solid var(--dt-green);
+  box-shadow: 0 0 30px rgba(51, 255, 51, 0.3), inset 0 0 15px rgba(51, 255, 51, 0.1);
+  position: relative;
+  z-index: 10;
+}
+
+/* ----- WINDOW HEADER ----- */
+.dt-window-header {
+  background: linear-gradient(90deg, #0a1a0a, #051005);
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--dt-green-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--dt-green);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.dt-window-title {
+  color: var(--dt-prompt);
+  text-shadow: 0 0 5px var(--dt-prompt-dim);
+}
+
+.dt-window-controls {
+  display: flex;
+  gap: 15px;
+}
+
+.dt-control {
+  color: var(--dt-green-dim);
+  cursor: default;
+}
+
+.dt-control:hover {
+  color: var(--dt-prompt);
+}
+
+/* ----- TERMINAL BODY ----- */
+.dt-terminal-body {
+  padding: 28px 32px;
+  position: relative;
+}
+
+/* ----- LINES & PROMPTS ----- */
+.dt-line {
+  font-family: var(--dt-font-mono);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.dt-prompt {
+  color: var(--dt-prompt);
+  font-weight: 600;
+  margin-right: 12px;
+  text-shadow: 0 0 8px var(--dt-prompt-dim);
+}
+
+.dt-prompt-user {
+  color: var(--dt-prompt);
+}
+
+.dt-prompt-path {
+  color: var(--dt-cyan);
+}
+
+.dt-prompt-dollar {
+  color: var(--dt-green);
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.dt-output {
+  margin-left: 20px;
+  color: var(--dt-text-dim);
+  border-left: 2px solid var(--dt-green-dim);
+  padding-left: 15px;
+}
+
+.dt-output-highlight {
+  color: var(--dt-green);
+  font-weight: 600;
+  text-shadow: 0 0 5px var(--dt-green);
+}
+
+.dt-output-dim {
+  color: var(--dt-text-dim);
+  opacity: 0.8;
+}
+
+/* ----- ASCII ART ----- */
+.dt-ascii pre {
+  font-family: var(--dt-font-mono);
+  color: var(--dt-green-dim);
+  font-size: 0.55rem;
+  line-height: 1.2;
+  text-shadow: 0 0 3px var(--dt-green-dim);
+  margin-bottom: 10px;
+}
+
+/* ----- PROGRESS BAR ----- */
+.dt-progress {
+  color: var(--dt-text-dim);
+}
+
+.dt-bar {
+  color: var(--dt-prompt);
+  letter-spacing: 2px;
+  margin-left: 10px;
+}
+
+/* ----- PANELS ----- */
+.dt-panel {
+  border: 1px solid var(--dt-border);
+  margin-bottom: 16px;
+  background: rgba(10, 20, 10, 0.7);
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.dt-panel-header {
+  background: linear-gradient(90deg, #0f1f0f, #071007);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--dt-green-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.dt-panel-title {
+  color: var(--dt-cyan);
+  text-shadow: 0 0 5px var(--dt-cyan);
+}
+
+.dt-panel-counter {
+  color: var(--dt-text-dim);
+  font-size: 0.8rem;
+}
+
+.dt-panel-body {
+  padding: 20px;
+}
+
+/* ----- GRID LAYOUTS ----- */
+.dt-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 700px) {
+  .dt-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ----- INFO ROWS ----- */
+.dt-info-row {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.dt-info-label {
+  color: var(--dt-text-dim);
+  width: 80px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dt-info-value {
+  color: var(--dt-text);
+}
+
+/* ----- GLITCH EFFECT ----- */
+.dt-glitch {
+  position: relative;
+  animation: glitch-skew 4s infinite linear;
+}
+
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); }
+  20% { transform: skew(0deg); }
+  21% { transform: skew(2deg); }
+  22% { transform: skew(0deg); }
+  98% { transform: skew(0deg); }
+  99% { transform: skew(-1deg); }
+  100% { transform: skew(0deg); }
+}
+
+/* ----- AVATAR ----- */
+.dt-avatar-glitch {
+  width: 120px;
+  height: 120px;
+  border: 2px solid var(--dt-green);
+  filter: grayscale(1) contrast(1.5) brightness(0.7) sepia(1) hue-rotate(70deg);
+  image-rendering: pixelated;
+  box-shadow: 0 0 15px var(--dt-green-dim);
+}
+
+.dt-avatar-ascii-enhanced pre {
+  font-family: var(--dt-font-mono);
+  color: var(--dt-text);
+  background: rgba(51, 255, 51, 0.05);
+  padding: 8px;
+  border: 1px solid var(--dt-green-dim);
+  font-size: 0.65rem;
+  line-height: 1.2;
+}
+
+.dt-profile-grid {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .dt-profile-grid {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ----- CONTACT ROWS ----- */
+.dt-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.dt-contact-icon {
+  font-size: 1.1rem;
+  width: 24px;
+}
+
+.dt-contact-label {
+  color: var(--dt-text-dim);
+  width: 70px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.dt-contact-link,
+.dt-contact-value {
+  color: var(--dt-cyan);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--dt-cyan);
+  padding-bottom: 2px;
+}
+
+.dt-contact-link:hover {
+  color: var(--dt-prompt);
+  border-bottom-color: var(--dt-prompt);
+}
+
+/* ----- SOCIAL BADGES ----- */
+.dt-social-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.dt-social-badge {
+  background: rgba(51, 255, 51, 0.1);
+  border: 1px solid var(--dt-green-dim);
+  padding: 6px 16px;
+  color: var(--dt-text);
+  text-decoration: none;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.dt-social-badge:hover {
+  background: var(--dt-green);
+  color: black;
+  border-color: var(--dt-green);
+  box-shadow: 0 0 15px var(--dt-green);
+}
+
+/* ----- SKILL MATRIX ----- */
+.dt-skill-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dt-skill-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dt-skill-name {
+  color: var(--dt-prompt);
+  font-weight: 600;
+  min-width: 120px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.dt-skill-version {
+  color: var(--dt-text-dim);
+  font-size: 0.8rem;
+  font-family: var(--dt-font-mono);
+}
+
+.dt-skill-bar {
+  color: var(--dt-green);
+  letter-spacing: 3px;
+  font-size: 0.9rem;
+}
+
+/* ----- HISTORY TABLE ----- */
+.dt-history-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.dt-history-header {
+  display: flex;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--dt-green-dim);
+  color: var(--dt-cyan);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.dt-history-time {
+  width: 100px;
+  color: var(--dt-text-dim);
+}
+
+.dt-history-command {
+  width: 80px;
+  color: var(--dt-prompt);
+}
+
+.dt-history-args {
+  flex: 1;
+  color: var(--dt-text);
+}
+
+.dt-history-row {
+  display: flex;
+  padding: 6px 0;
+  border-bottom: 1px dotted var(--dt-border);
+}
+
+.dt-history-output {
+  margin-left: 100px;
+  padding: 8px 0 16px 20px;
+  color: var(--dt-text-dim);
+  display: flex;
+  gap: 10px;
+  border-left: 2px solid var(--dt-border);
+}
+
+.dt-output-icon {
+  color: var(--dt-cyan);
+}
+
+/* ----- REPOSITORY LIST ----- */
+.dt-repo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dt-repo-item {
+  border-bottom: 1px solid var(--dt-border);
+  padding-bottom: 20px;
+}
+
+.dt-repo-item:last-child {
+  border-bottom: none;
+}
+
+.dt-repo-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.dt-repo-icon {
+  font-size: 1.2rem;
+}
+
+.dt-repo-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--dt-prompt);
+  text-shadow: 0 0 5px var(--dt-prompt-dim);
+}
+
+.dt-repo-branch {
+  background: rgba(51, 255, 51, 0.1);
+  border: 1px solid var(--dt-green-dim);
+  padding: 2px 10px;
+  font-size: 0.7rem;
+  color: var(--dt-text);
+  text-transform: uppercase;
+}
+
+.dt-repo-status {
+  color: var(--dt-green);
+  font-size: 0.7rem;
+  margin-left: auto;
+}
+
+.dt-repo-description {
+  color: var(--dt-text-dim);
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.dt-repo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.dt-repo-tag {
+  background: rgba(102, 255, 102, 0.08);
+  border: 1px solid var(--dt-green-dim);
+  color: var(--dt-text);
+  padding: 3px 12px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dt-repo-links {
+  display: flex;
+  gap: 24px;
+}
+
+.dt-repo-link {
+  color: var(--dt-cyan);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--dt-cyan);
+  padding-bottom: 2px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dt-repo-link:hover {
+  color: var(--dt-prompt);
+  border-bottom-color: var(--dt-prompt);
+}
+
+/* ----- EDUCATION CARDS ----- */
+.dt-edu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dt-edu-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--dt-border);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.dt-edu-icon {
+  font-size: 2rem;
+  color: var(--dt-cyan);
+}
+
+.dt-edu-degree {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dt-prompt);
+}
+
+.dt-edu-institution {
+  color: var(--dt-text);
+  font-size: 0.95rem;
+}
+
+.dt-edu-date {
+  color: var(--dt-text-dim);
+  font-size: 0.8rem;
+  font-family: var(--dt-font-mono);
+}
+
+/* ----- CERTIFICATION BADGES ----- */
+.dt-cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.dt-cert-badge {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--dt-border);
+  background: rgba(0, 20, 0, 0.4);
+}
+
+.dt-cert-seal {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border: 1px solid var(--dt-green);
+}
+
+.dt-cert-seal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(1) hue-rotate(70deg);
+}
+
+.dt-cert-seal-placeholder {
+  font-size: 2.5rem;
+  color: var(--dt-green-dim);
+}
+
+.dt-cert-name {
+  color: var(--dt-prompt);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.dt-cert-issuer {
+  color: var(--dt-text);
+  font-size: 0.85rem;
+}
+
+.dt-cert-year {
+  color: var(--dt-text-dim);
+  font-size: 0.75rem;
+}
+
+/* ----- ACHIEVEMENTS ----- */
+.dt-achievement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dt-achievement-entry {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 8px;
+  border-left: 4px solid var(--dt-prompt-dim);
+}
+
+.dt-achievement-trophy {
+  font-size: 1.2rem;
+  color: var(--dt-prompt);
+}
+
+.dt-achievement-title {
+  font-weight: 600;
+  color: var(--dt-text);
+}
+
+.dt-achievement-desc {
+  color: var(--dt-text-dim);
+  font-size: 0.9rem;
+}
+
+.dt-achievement-date {
+  color: var(--dt-green-dim);
+  font-size: 0.8rem;
+  margin-left: auto;
+}
+
+/* ----- ACTIVE PROMPT ----- */
+.dt-active-prompt {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--dt-border);
+}
+
+.dt-cursor-blink {
+  animation: blink 1s step-end infinite;
+  color: var(--dt-prompt);
+  font-weight: 400;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ----- FOOTER ----- */
+.dt-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 2px solid var(--dt-border);
+  color: var(--dt-text-dim);
+  font-size: 0.8rem;
+}
+
+.dt-footer-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dt-footer-prompt {
+  color: var(--dt-prompt);
+  font-size: 1rem;
+}
+
+.dt-exit-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  color: var(--dt-green);
+}
+
+.dt-status-indicator {
+  color: var(--dt-green);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ----- SCROLLBAR ----- */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dt-black);
+  border: 1px solid var(--dt-border);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dt-green-dim);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dt-green);
+}
+
+/* ----- RESPONSIVE ----- */
+@media (max-width: 800px) {
+  .dt-terminal-body {
+    padding: 20px;
+  }
+  
+  .dt-history-header,
+  .dt-history-row {
+    flex-wrap: wrap;
+  }
+  
+  .dt-history-time,
+  .dt-history-command,
+  .dt-history-args {
+    width: auto;
+  }
+  
+  .dt-achievement-date {
+    margin-left: 0;
+    width: 100%;
+  }
+}

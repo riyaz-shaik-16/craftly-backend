@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const portfolioSchema = new mongoose.Schema(
   {
@@ -40,7 +40,9 @@ const portfolioSchema = new mongoose.Schema(
           description: String,
           techStack: [String],
           githubLink: String,
+          demoLink: String,
           liveLink: String,
+          images: [String],
           featured: {
             type: Boolean,
             default: false
@@ -63,7 +65,7 @@ const portfolioSchema = new mongoose.Schema(
         {
           name: String,
           category: String,
-          level: Number 
+          level: Number
         }
       ],
 
@@ -82,7 +84,7 @@ const portfolioSchema = new mongoose.Schema(
           name: String,
           issuer: String,
           issueDate: Date,
-          credentialUrl: String
+          images: [String]
         }
       ],
 
@@ -90,7 +92,8 @@ const portfolioSchema = new mongoose.Schema(
         {
           title: String,
           description: String,
-          date: Date
+          date: Date,
+          images: [String]
         }
       ],
 
@@ -99,19 +102,6 @@ const portfolioSchema = new mongoose.Schema(
         linkedin: String,
         twitter: String,
         website: String
-      }
-    },
-
-    seo: {
-      metaTitle: String,
-      metaDescription: String,
-      keywords: [String]
-    },
-
-    analytics: {
-      views: {
-        type: Number,
-        default: 0
       }
     },
 
@@ -125,6 +115,5 @@ const portfolioSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
 
 export default mongoose.model("Portfolio", portfolioSchema);

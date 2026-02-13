@@ -11,7 +11,6 @@ export const previewPortfolio = async (req, res, next) => {
       });
     }
 
-    // Get saved portfolio from DB
     const portfolio = await Portfolio.findOne({
       userId: req.user._id
     });
@@ -23,10 +22,10 @@ export const previewPortfolio = async (req, res, next) => {
       });
     }
 
-    // Generate HTML from saved portfolio
     const html = renderTemplate({
-      template:"modern",
+      template: portfolio.template,
       data: portfolio.data,
+      theme:portfolio.theme
     });
 
     return res.status(200).json({
@@ -35,6 +34,7 @@ export const previewPortfolio = async (req, res, next) => {
     });
 
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };

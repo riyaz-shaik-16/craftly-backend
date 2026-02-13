@@ -1,0 +1,243 @@
+{{!-- HERO — neural interface --}}
+<section class="af-hero">
+  <div class="af-grid-bg"></div>
+  <div class="af-scanline"></div>
+  <div class="container">
+    <div class="af-hero-content">
+      <div class="af-hero-text">
+        <span class="af-badge">INITIALIZING...</span>
+        <h1>{{personal.name}}</h1>
+        <div class="af-title">{{personal.title}}</div>
+        <div class="af-glitch" data-text="{{personal.summary}}">{{personal.summary}}</div>
+
+        <div class="af-contact">
+          {{#if personal.email}}
+          <span><i class="fas fa-envelope"></i> {{personal.email}}</span>
+          {{/if}}
+          {{#if personal.phone}}
+          <span><i class="fas fa-phone-alt"></i> {{personal.phone}}</span>
+          {{/if}}
+          {{#if personal.location}}
+          <span><i class="fas fa-map-marker-alt"></i> {{personal.location}}</span>
+          {{/if}}
+        </div>
+
+        {{#if socialLinks.length}}
+        <div class="af-social">
+          {{#each socialLinks}}
+          <a href="{{this.url}}" target="_blank" rel="noopener" class="af-neon-link">
+            {{#if (eq this.platform "website")}}
+            <i class="fas fa-globe"></i>
+            {{else}}
+            <i class="fab fa-{{this.platform}}"></i>
+            {{/if}}
+          </a>
+          {{/each}}
+        </div>
+        {{/if}}
+      </div>
+
+      <div class="af-hologram">
+        {{#if personal.avatar}}
+        <img src="{{personal.avatar}}" alt="{{personal.name}}" class="af-avatar">
+        {{else}}
+        <div class="af-avatar-placeholder">{{firstLetter personal.name}}</div>
+        {{/if}}
+        <div class="af-ring af-ring-1"></div>
+        <div class="af-ring af-ring-2"></div>
+        <div class="af-ring af-ring-3"></div>
+        <div class="af-corner-bl"></div>
+        <div class="af-corner-br"></div>
+        <div class="af-corner-tl"></div>
+        <div class="af-corner-tr"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{!-- PROJECTS — holographic data pods --}}
+{{#if projects.length}}
+<section class="af-projects">
+  <div class="container">
+    <div class="af-section-header">
+      <h2><span class="af-bracket">[</span> PROJECTS <span class="af-bracket">]</span></h2>
+      <div class="af-header-line"></div>
+    </div>
+
+    <div class="af-pod-grid">
+      {{#each projects}}
+      <div class="af-pod" data-index="{{@index}}">
+        <div class="af-pod-inner">
+          {{#if this.images.length}}
+          <div class="af-pod-visual">
+            <img src="{{this.images.[0]}}" alt="{{this.title}}">
+            <div class="af-scan"></div>
+          </div>
+          {{/if}}
+          <div class="af-pod-content">
+            <div class="af-pod-header">
+              <h3>{{this.title}}</h3>
+              {{#if this.featured}}
+              <span class="af-neon-badge"><i class="fas fa-crown"></i> CORE</span>
+              {{/if}}
+            </div>
+            <p>{{this.description}}</p>
+            {{#if this.techStack.length}}
+            <div class="af-tech">
+              {{#each this.techStack}}
+              <span class="af-tech-tag">#{{this}}</span>
+              {{/each}}
+            </div>
+            {{/if}}
+            <div class="af-pod-links">
+              {{#if this.githubLink}}
+              <a href="{{this.githubLink}}" target="_blank" class="af-link"><i class="fab fa-github"></i> <span>SOURCE</span></a>
+              {{/if}}
+              {{#if this.demoLink}}
+              <a href="{{this.demoLink}}" target="_blank" class="af-link"><i class="fas fa-play-circle"></i> <span>DEMO</span></a>
+              {{/if}}
+              {{#if this.liveLink}}
+              <a href="{{this.liveLink}}" target="_blank" class="af-link"><i class="fas fa-external-link-alt"></i> <span>LIVE</span></a>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        <div class="af-pod-glow"></div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- EXPERIENCE — neural pathway timeline --}}
+{{#if experience.length}}
+<section class="af-experience">
+  <div class="container">
+    <div class="af-section-header">
+      <h2><span class="af-bracket">[</span> NEURAL PATH <span class="af-bracket">]</span></h2>
+      <div class="af-header-line"></div>
+    </div>
+    <div class="af-timeline">
+      {{#each experience}}
+      <div class="af-timeline-node">
+        <div class="af-node-marker">
+          <i class="fas fa-microchip"></i>
+          <div class="af-pulse"></div>
+        </div>
+        <div class="af-node-content">
+          <div class="af-node-header">
+            <div>
+              <h3>{{this.company}}</h3>
+              <span class="af-role">{{this.position}}</span>
+            </div>
+            <div class="af-node-date">{{this.startDate}} – {{this.endDate}}</div>
+          </div>
+          <p>{{this.description}}</p>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- SKILLS — quantum cloud --}}
+{{#if skills.length}}
+<section class="af-skills">
+  <div class="container">
+    <div class="af-section-header">
+      <h2><span class="af-bracket">[</span> QUANTUM STACK <span class="af-bracket">]</span></h2>
+      <div class="af-header-line"></div>
+    </div>
+    <div class="af-quantum-cloud">
+      {{#each skills}}
+      <span class="af-quantum-tag" style="--delay: {{multiply @index 0.1}}s;">{{this}}</span>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- EDUCATION — data cores --}}
+{{#if education.length}}
+<section class="af-education">
+  <div class="container">
+    <div class="af-section-header">
+      <h2><span class="af-bracket">[</span> DATA CORES <span class="af-bracket">]</span></h2>
+      <div class="af-header-line"></div>
+    </div>
+    <div class="af-core-grid">
+      {{#each education}}
+      <div class="af-core">
+        <div class="af-core-icon"><i class="fas fa-database"></i></div>
+        <h3>{{this.institution}}</h3>
+        <div class="af-core-degree">{{this.degree}}{{#if this.field}}, {{this.field}}{{/if}}</div>
+        <div class="af-core-date">{{this.startDate}} – {{this.endDate}}</div>
+        <div class="af-core-glitch"></div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- CERTIFICATIONS — encrypted badges --}}
+{{#if certifications.length}}
+<section class="af-certifications">
+  <div class="container">
+    <div class="af-section-header">
+      <h2><span class="af-bracket">[</span> ENCRYPTED BADGES <span class="af-bracket">]</span></h2>
+      <div class="af-header-line"></div>
+    </div>
+    <div class="af-badge-grid">
+      {{#each certifications}}
+      <div class="af-badge-card">
+        {{#if this.images.length}}
+        <div class="af-badge-visual">
+          <img src="{{this.images.[0]}}" alt="{{this.name}}">
+          <div class="af-badge-overlay"></div>
+        </div>
+        {{/if}}
+        <div class="af-badge-info">
+          <h4>{{this.name}}</h4>
+          <span>{{this.issuer}}</span>
+          <small>{{this.year}}</small>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+{{!-- ACHIEVEMENTS — trophies / unlocked --}}
+{{#if achievements.length}}
+<section class="af-achievements">
+  <div class="container">
+    <div class="af-section-header">
+      <h2><span class="af-bracket">[</span> ACHIEVEMENTS UNLOCKED <span class="af-bracket">]</span></h2>
+      <div class="af-header-line"></div>
+    </div>
+    <div class="af-trophy-wall">
+      {{#each achievements}}
+      <div class="af-trophy">
+        <div class="af-trophy-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3>{{this.title}}</h3>
+        <p>{{this.description}}</p>
+        <div class="af-trophy-date">{{this.date}}</div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+<footer class="af-footer">
+  <div class="container">
+    <div class="af-footer-content">
+      <span class="af-cursor">></span>
+      <p>© {{personal.name}} · compiled with Craftly</p>
+    </div>
+  </div>
+</footer>
