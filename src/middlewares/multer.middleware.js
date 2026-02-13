@@ -1,7 +1,9 @@
 import multer from "multer";
 
+// Store uploaded files in memory instead of disk
 const storage = multer.memoryStorage();
 
+// Validate that only image files are accepted
 const fileFilter = (_req, file, cb) => {
   if (file.mimetype.startsWith("image/")) {
     cb(null, true);
@@ -10,6 +12,7 @@ const fileFilter = (_req, file, cb) => {
   }
 };
 
+// Configure multer with storage, file validation, and 5MB size limit
 const upload = multer({
   storage,
   fileFilter,

@@ -2,9 +2,6 @@ import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import { generateToken } from "../utils/jwt.js";
 
-/* -------------------------------------------------
-   Register
-------------------------------------------------- */
 export const register = async (req, res, next) => {
   try {
     const { fullName, email, username, password } = req.body;
@@ -16,6 +13,7 @@ export const register = async (req, res, next) => {
       });
     }
 
+    // Check if email already exists
     const existingEmail = await User.findOne({ email });
     if (existingEmail) {
       return res.status(409).json({
@@ -24,6 +22,7 @@ export const register = async (req, res, next) => {
       });
     }
 
+    // Check if username already exists
     const existingUsername = await User.findOne({ username });
     if (existingUsername) {
       return res.status(409).json({
@@ -32,6 +31,7 @@ export const register = async (req, res, next) => {
       });
     }
 
+    // Hash password with bcrypt
     const passwordHash = await bcrypt.hash(password, 10);
 
     const user = await User.create({
@@ -62,7 +62,6 @@ export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -78,6 +77,7 @@ export const login = async (req, res, next) => {
       });
     }
 
+    // Verify password against stored hash
     const isMatch = await bcrypt.compare(password, user.passwordHash);
     if (!isMatch) {
       return res.status(401).json({

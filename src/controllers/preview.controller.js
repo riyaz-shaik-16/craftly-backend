@@ -1,9 +1,10 @@
 import { renderTemplate } from "../services/template.service.js";
 import Portfolio from "../models/portfolio.model.js";
 
-
+// Preview a user's portfolio by rendering it with their template, data, and theme
 export const previewPortfolio = async (req, res, next) => {
   try {
+    // Check if user is authenticated
     if (!req.user?._id) {
       return res.status(401).json({
         success: false,
@@ -11,6 +12,7 @@ export const previewPortfolio = async (req, res, next) => {
       });
     }
 
+    // Fetch portfolio from database
     const portfolio = await Portfolio.findOne({
       userId: req.user._id
     });
@@ -22,10 +24,11 @@ export const previewPortfolio = async (req, res, next) => {
       });
     }
 
+    // Render portfolio HTML with user's template configuration
     const html = renderTemplate({
       template: portfolio.template,
       data: portfolio.data,
-      theme:portfolio.theme
+      theme: portfolio.theme
     });
 
     return res.status(200).json({
@@ -34,7 +37,6 @@ export const previewPortfolio = async (req, res, next) => {
     });
 
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };

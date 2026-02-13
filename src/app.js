@@ -8,7 +8,6 @@ import { errorHandler, notFound } from "./middlewares/error.middleware.js";
 import authRoutes from "./routes/auth.routes.js";
 import portfolioRoutes from "./routes/portfolio.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
-// import publicRoutes from "./routes/public.routes.js";
 import previewRoutes from "./routes/preview.routes.js";
 
 

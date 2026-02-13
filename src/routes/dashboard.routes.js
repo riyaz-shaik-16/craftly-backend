@@ -1,5 +1,5 @@
 import express from "express";
-import { getDashboard } from "../controllers/dashboard.controller.js";
+import { getBuilderOverview, getDashboard } from "../controllers/dashboard.controller.js";
 import { protect } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
@@ -9,5 +9,10 @@ const router = express.Router();
   Protected
 */
 router.get("/", protect, getDashboard);
+router.get(
+  "/builder/overview",
+  protect,
+  getBuilderOverview
+);
 
 export default router;
