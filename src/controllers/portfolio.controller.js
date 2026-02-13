@@ -1,6 +1,10 @@
 import Portfolio from "../models/portfolio.model.js";
+import User from "../models/user.model.js";
+import fs from "fs";
+import path from "path";
 import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
 import { normalizeUrl } from "../utils/normalizeUrl.js";
+import { renderTemplate } from "../utils/renderTemplate.js";
 
 export const savePortfolio = async (req, res, next) => {
   try {
@@ -193,5 +197,79 @@ export const getPortfolio = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+};
+
+
+export const deployPortfolio = async (req, res) => {
+  try {
+    if (!req.user?._id) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized"
+      });
+    }
+
+    // Get user
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found"
+      });
+    }
+
+    // Validate username (important for folder safety)
+    if (!/^[a-z0-9-]+$/i.test(user.username)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid username"
+      });
+    }
+
+    // Get portfolio
+    const portfolio = await Portfolio.findOne({ userId: user._id });
+    if (!portfolio) {
+      return res.status(404).json({
+        success: false,
+        message: "Portfolio not found"
+      });
+    }
+
+    // Generate HTML
+    const html = renderTemplate({
+      template: portfolio.template,
+      data: portfolio.data,
+      theme: portfolio.theme
+    });
+
+    // Static base directory
+    const basePath = "/var/www/craftly";
+    const userPath = path.join(basePath, user.username);
+
+    // Create folder if not exists
+    if (!fs.existsSync(userPath)) {
+      fs.mkdirSync(userPath, { recursive: true });
+    }
+
+    // Write index.html (overwrite if exists)
+    fs.writeFileSync(path.join(userPath, "index.html"), html);
+
+    // Update deployment status
+    portfolio.deployed = true;
+    portfolio.deployedUrl = `https://${user.username}.craftly.riyazdev.site`;
+    await portfolio.save();
+
+    return res.status(200).json({
+      success: true,
+      deployedUrl: portfolio.deployedUrl
+    });
+
+  } catch (error) {
+    console.error("Deploy error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Deployment failed"
+    });
   }
 };

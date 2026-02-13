@@ -2,6 +2,7 @@ import express from "express";
 import { protect } from "../middlewares/auth.middleware.js";
 import upload from "../middlewares/multer.middleware.js";
 import {
+  deployPortfolio,
   getPortfolio,
   savePortfolio,
   updateTemplate,
@@ -26,6 +27,13 @@ router.post(
   "/update-template",
   protect,
   updateTemplate
+);
+
+
+router.post(
+  "/deploy",
+  protect,
+  deployPortfolio
 );
 
 
