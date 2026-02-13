@@ -257,7 +257,7 @@ export const deployPortfolio = async (req, res) => {
 
     // Update deployment status
     portfolio.deployed = true;
-    portfolio.deployedUrl = `https://${user.username}.craftly.riyazdev.site`;
+    portfolio.deployedUrl = `https://${user.username}.riyazdev.site`;
     await portfolio.save();
 
     return res.status(200).json({
