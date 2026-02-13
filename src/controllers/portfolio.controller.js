@@ -257,7 +257,7 @@ export const deployPortfolio = async (req, res) => {
 
     // Update deployment status
     portfolio.deployedUrl = `https://${user.username}.riyazdev.site`;
-    portfolio.status = "deployed";
+    portfolio.status = "live";
     await portfolio.save();
 
     return res.status(200).json({
