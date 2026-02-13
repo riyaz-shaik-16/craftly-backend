@@ -4,7 +4,7 @@ import fs from "fs";
 import path from "path";
 import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
 import { normalizeUrl } from "../utils/normalizeUrl.js";
-import { renderTemplate } from "../utils/renderTemplate.js";
+import { renderTemplate } from "../utils/template.service.js";
 
 export const savePortfolio = async (req, res, next) => {
   try {
