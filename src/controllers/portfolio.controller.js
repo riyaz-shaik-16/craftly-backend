@@ -10,7 +10,7 @@ export const savePortfolio = async (req, res, next) => {
   try {
     const { template } = req.body;
 
-    if (!template || !req.body.theme || !req.body.data) {
+    if (!template || !req.body.data) {
       return res.status(400).json({
         success: false,
         message: "Template, theme and data are required",
