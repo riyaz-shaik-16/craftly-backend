@@ -269,8 +269,12 @@ export const deployPortfolio = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      deployedUrl: portfolio.deployedUrl,
-      status:portfolio.status
+      state: "live",
+      portfolio: {
+        template: portfolio.template,
+        deployedUrl: portfolio.deployedUrl,
+        updatedAt: portfolio.updatedAt
+      }
     });
 
   } catch (error) {
@@ -279,5 +283,50 @@ export const deployPortfolio = async (req, res) => {
       success: false,
       message: "Deployment failed"
     });
+  }
+};
+
+export const getTemplate = async (req, res, next) => {
+  console.log("here");
+  try {
+    const portfolio = await Portfolio.findOne({
+      userId: req.user._id,
+    });
+
+    if (!portfolio) {
+      return res.status(200).json({
+        success: true,
+        template: null,
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      template: portfolio.template,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getTheme = async (req, res, next) => {
+  try {
+    const portfolio = await Portfolio.findOne({
+      userId: req.user._id,
+    });
+
+    if (!portfolio) {
+      return res.status(200).json({
+        success: true,
+        theme: null,
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      theme: portfolio.theme,
+    });
+  } catch (error) {
+    next(error);
   }
 };

@@ -14,6 +14,36 @@ Handlebars.registerHelper("firstLetter", function (str) {
   return str && typeof str === "string" ? str.charAt(0).toUpperCase() : "";
 });
 
+Handlebars.registerHelper("and", function () {
+  const args = Array.from(arguments).slice(0, -1); 
+  return args.every(Boolean);
+});
+
+
+Handlebars.registerHelper("or", function () {
+  const args = Array.from(arguments).slice(0, -1); 
+  return args.some(Boolean);
+});
+
+
+Handlebars.registerHelper("isFilled", function (value) {
+  if (value === null || value === undefined) return false;
+
+  if (typeof value === "string") {
+    return value.trim().length > 0;
+  }
+
+  if (Array.isArray(value)) {
+    return value.length > 0;
+  }
+
+  if (typeof value === "object") {
+    return Object.keys(value).length > 0;
+  }
+
+  return true;
+});
+
 Handlebars.registerHelper("rand", function (min, max) {
   min = parseInt(min);
   max = parseInt(max);

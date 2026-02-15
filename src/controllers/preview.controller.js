@@ -24,6 +24,14 @@ export const previewPortfolio = async (req, res, next) => {
       });
     }
 
+    if(portfolio.status==="new"){
+      return res.status(200).json({
+        success:true,
+        previewAvailable:false,
+        message:"Fill details!"
+      })
+    }
+
     // Render portfolio HTML with user's template configuration
     const html = renderTemplate({
       template: portfolio.template,
@@ -33,10 +41,13 @@ export const previewPortfolio = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
+      previewAvailable:true,
+      message:"Portfolio rendered successfully!",
       html
     });
 
   } catch (error) {
+    console.log("Error: ", error);
     next(error);
   }
 };

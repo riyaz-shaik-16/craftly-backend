@@ -4,6 +4,8 @@ import upload from "../middlewares/multer.middleware.js";
 import {
   deployPortfolio,
   getPortfolio,
+  getTemplate,
+  getTheme,
   savePortfolio,
   updateTemplate,
   updateTheme
@@ -20,6 +22,18 @@ router.post(
   "/update-theme",
   protect,
   updateTheme
+);
+
+router.get(
+  "/get-theme",
+  protect,
+  getTheme
+);
+
+router.get(
+  "/get-template",
+  protect,
+  getTemplate
 );
 
 

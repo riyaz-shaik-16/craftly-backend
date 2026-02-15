@@ -11,7 +11,7 @@ const portfolioSchema = new mongoose.Schema(
 
     template: {
       type: String,
-      required: true
+      default:"modern"
     },
 
     theme: {
@@ -107,8 +107,8 @@ const portfolioSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["draft", "live"],
-      default: "draft"
+      enum: ["draft", "live","new"],
+      default: "new"
     },
 
     deployedUrl: String

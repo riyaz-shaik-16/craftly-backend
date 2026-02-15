@@ -1,210 +1,380 @@
-{{!-- LUXURY PERSONAL BRAND — minimal, editorial, Apple‑like --}}
 <section class="lp-hero">
   <div class="lp-container">
     <div class="lp-hero-grid">
+
       <div class="lp-hero-text">
-        <span class="lp-hero-greeting">{{personal.name}}</span>
-        <h1>{{personal.title}}</h1>
-        <p class="lp-hero-summary">{{personal.summary}}</p>
+
+        {{#if (isFilled personal.name)}}
+          <span class="lp-hero-greeting">{{personal.name}}</span>
+        {{/if}}
+
+        {{#if (isFilled personal.title)}}
+          <h1>{{personal.title}}</h1>
+        {{/if}}
+
+        {{#if (isFilled personal.summary)}}
+          <p class="lp-hero-summary">{{personal.summary}}</p>
+        {{/if}}
+
+        {{#if (or (isFilled personal.email) (isFilled personal.phone) (isFilled personal.location))}}
         <div class="lp-hero-contact">
-          {{#if personal.email}}
-          <a href="mailto:{{personal.email}}" class="lp-contact-link">{{personal.email}}</a>
+
+          {{#if (isFilled personal.email)}}
+            <a href="mailto:{{personal.email}}" class="lp-contact-link">
+              {{personal.email}}
+            </a>
           {{/if}}
-          {{#if personal.phone}}
-          <span class="lp-contact-separator">—</span>
-          <span class="lp-contact-text">{{personal.phone}}</span>
+
+          {{#if (isFilled personal.phone)}}
+            {{#if (isFilled personal.email)}}
+              <span class="lp-contact-separator">—</span>
+            {{/if}}
+            <span class="lp-contact-text">{{personal.phone}}</span>
           {{/if}}
-          {{#if personal.location}}
-          <span class="lp-contact-separator">—</span>
-          <span class="lp-contact-text">{{personal.location}}</span>
+
+          {{#if (isFilled personal.location)}}
+            {{#if (or (isFilled personal.email) (isFilled personal.phone))}}
+              <span class="lp-contact-separator">—</span>
+            {{/if}}
+            <span class="lp-contact-text">{{personal.location}}</span>
           {{/if}}
+
         </div>
+        {{/if}}
+
+        {{#if (isFilled socialLinks)}}
         <div class="lp-social">
           {{#each socialLinks}}
-          <a href="{{this.url}}" target="_blank" rel="noopener" class="lp-social-link">
-            {{#if (eq this.platform "website")}}
-            <i class="fas fa-globe"></i>
-            {{else}}
-            <i class="fab fa-{{this.platform}}"></i>
+            {{#if (and (isFilled this.url) (isFilled this.platform))}}
+              <a href="{{this.url}}" target="_blank" rel="noopener" class="lp-social-link">
+                {{#if (eq this.platform "website")}}
+                  <i class="fas fa-globe"></i>
+                {{else}}
+                  <i class="fab fa-{{this.platform}}"></i>
+                {{/if}}
+              </a>
             {{/if}}
-          </a>
           {{/each}}
         </div>
+        {{/if}}
+
       </div>
+
+
       <div class="lp-hero-visual">
-        {{#if personal.avatar}}
-        <div class="lp-avatar-frame">
-          <img src="{{personal.avatar}}" alt="{{personal.name}}" class="lp-avatar">
-        </div>
+        {{#if (isFilled personal.avatar)}}
+          <div class="lp-avatar-frame">
+            <img src="{{personal.avatar}}" alt="{{personal.name}}" class="lp-avatar">
+          </div>
         {{else}}
-        <div class="lp-avatar-placeholder">{{firstLetter personal.name}}</div>
+          {{#if (isFilled personal.name)}}
+            <div class="lp-avatar-placeholder">
+              {{firstLetter personal.name}}
+            </div>
+          {{/if}}
         {{/if}}
       </div>
+
     </div>
   </div>
 </section>
 
-{{!-- CURATED WORK — projects --}}
-{{#if projects.length}}
+
+
+{{!-- PROJECTS --}}
+{{#if (isFilled projects)}}
 <section class="lp-curated">
   <div class="lp-container">
+
     <div class="lp-section-header">
       <h2>Curated work</h2>
       <p class="lp-section-subtitle">Selected projects, crafted with intent.</p>
     </div>
+
     <div class="lp-grid">
+
       {{#each projects}}
-      <div class="lp-card">
-        <div class="lp-card-media">
-          {{#if this.images.length}}
-          <img src="{{this.images.[0]}}" alt="{{this.title}}">
-          {{else}}
-          <div class="lp-card-placeholder"></div>
-          {{/if}}
-          {{#if this.featured}}
-          <span class="lp-card-badge">Featured</span>
-          {{/if}}
-        </div>
-        <div class="lp-card-content">
-          <h3>{{this.title}}</h3>
-          <p>{{this.description}}</p>
-          {{#if this.techStack.length}}
-          <div class="lp-tech">
-            {{#each this.techStack}}
-            <span class="lp-tech-tag">{{this}}</span>
-            {{/each}}
+        {{#if (isFilled this.title)}}
+        <div class="lp-card">
+
+          <div class="lp-card-media">
+            {{#if (isFilled this.images)}}
+              <img src="{{this.images.[0]}}" alt="{{this.title}}">
+            {{else}}
+              <div class="lp-card-placeholder"></div>
+            {{/if}}
+
+            {{#if this.featured}}
+              <span class="lp-card-badge">Featured</span>
+            {{/if}}
           </div>
-          {{/if}}
-          <div class="lp-card-links">
-            {{#if this.githubLink}}<a href="{{this.githubLink}}" target="_blank" class="lp-link"><i class="fab fa-github"></i> GitHub</a>{{/if}}
-            {{#if this.demoLink}}<a href="{{this.demoLink}}" target="_blank" class="lp-link"><i class="fas fa-play-circle"></i> Demo</a>{{/if}}
-            {{#if this.liveLink}}<a href="{{this.liveLink}}" target="_blank" class="lp-link"><i class="fas fa-external-link-alt"></i> Live</a>{{/if}}
+
+          <div class="lp-card-content">
+
+            <h3>{{this.title}}</h3>
+
+            {{#if (isFilled this.description)}}
+              <p>{{this.description}}</p>
+            {{/if}}
+
+            {{#if (isFilled this.techStack)}}
+            <div class="lp-tech">
+              {{#each this.techStack}}
+                {{#if (isFilled this)}}
+                  <span class="lp-tech-tag">{{this}}</span>
+                {{/if}}
+              {{/each}}
+            </div>
+            {{/if}}
+
+            {{#if (or (isFilled this.githubLink) (isFilled this.demoLink) (isFilled this.liveLink))}}
+            <div class="lp-card-links">
+
+              {{#if (isFilled this.githubLink)}}
+                <a href="{{this.githubLink}}" target="_blank" class="lp-link">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              {{/if}}
+
+              {{#if (isFilled this.demoLink)}}
+                <a href="{{this.demoLink}}" target="_blank" class="lp-link">
+                  <i class="fas fa-play-circle"></i> Demo
+                </a>
+              {{/if}}
+
+              {{#if (isFilled this.liveLink)}}
+                <a href="{{this.liveLink}}" target="_blank" class="lp-link">
+                  <i class="fas fa-external-link-alt"></i> Live
+                </a>
+              {{/if}}
+
+            </div>
+            {{/if}}
+
           </div>
         </div>
-      </div>
+        {{/if}}
       {{/each}}
+
     </div>
   </div>
 </section>
 {{/if}}
 
-{{!-- EXPERIENCE — refined timeline --}}
-{{#if experience.length}}
+
+
+{{!-- EXPERIENCE --}}
+{{#if (isFilled experience)}}
 <section class="lp-experience">
   <div class="lp-container">
+
     <div class="lp-section-header">
       <h2>Experience</h2>
       <p class="lp-section-subtitle">Roles that shaped a practice.</p>
     </div>
+
     <div class="lp-timeline">
+
       {{#each experience}}
-      <div class="lp-timeline-item">
-        <div class="lp-timeline-marker"></div>
-        <div class="lp-timeline-content">
-          <div class="lp-timeline-period">{{this.startDate}} – {{this.endDate}}</div>
-          <h3>{{this.position}}</h3>
-          <div class="lp-timeline-company">{{this.company}}</div>
-          <p>{{this.description}}</p>
+        {{#if (isFilled this.company)}}
+        <div class="lp-timeline-item">
+
+          <div class="lp-timeline-marker"></div>
+
+          <div class="lp-timeline-content">
+
+            {{#if (isFilled this.startDate)}}
+              <div class="lp-timeline-period">
+                {{this.startDate}}
+                {{#if (isFilled this.endDate)}} – {{this.endDate}}{{/if}}
+              </div>
+            {{/if}}
+
+            {{#if (isFilled this.position)}}
+              <h3>{{this.position}}</h3>
+            {{/if}}
+
+            <div class="lp-timeline-company">{{this.company}}</div>
+
+            {{#if (isFilled this.description)}}
+              <p>{{this.description}}</p>
+            {{/if}}
+
+          </div>
         </div>
-      </div>
+        {{/if}}
       {{/each}}
+
     </div>
   </div>
 </section>
 {{/if}}
 
-{{!-- SKILLS & EXPERTISE --}}
-{{#if skills.length}}
+
+
+{{!-- SKILLS --}}
+{{#if (isFilled skills)}}
 <section class="lp-skills">
   <div class="lp-container">
+
     <div class="lp-section-header">
       <h2>Expertise</h2>
       <p class="lp-section-subtitle">Disciplines and tools.</p>
     </div>
+
     <div class="lp-expertise-grid">
       {{#each skills}}
-      <span class="lp-expertise-item">{{this}}</span>
+        {{#if (isFilled this)}}
+          <span class="lp-expertise-item">{{this}}</span>
+        {{/if}}
       {{/each}}
     </div>
+
   </div>
 </section>
 {{/if}}
 
-{{!-- EDUCATION — academic background --}}
-{{#if education.length}}
+
+
+{{!-- EDUCATION --}}
+{{#if (isFilled education)}}
 <section class="lp-education">
   <div class="lp-container">
+
     <div class="lp-section-header">
       <h2>Education</h2>
       <p class="lp-section-subtitle">Foundations of knowledge.</p>
     </div>
+
     <div class="lp-edu-grid">
+
       {{#each education}}
-      <div class="lp-edu-card">
-        <div class="lp-edu-icon"><i class="fas fa-graduation-cap"></i></div>
-        <h3>{{this.institution}}</h3>
-        <div class="lp-edu-degree">{{this.degree}}{{#if this.field}}, {{this.field}}{{/if}}</div>
-        <div class="lp-edu-date">{{this.startDate}} – {{this.endDate}}</div>
-      </div>
+        {{#if (isFilled this.institution)}}
+        <div class="lp-edu-card">
+
+          <div class="lp-edu-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+
+          <h3>{{this.institution}}</h3>
+
+          {{#if (isFilled this.degree)}}
+          <div class="lp-edu-degree">
+            {{this.degree}}
+            {{#if (isFilled this.field)}}, {{this.field}}{{/if}}
+          </div>
+          {{/if}}
+
+          {{#if (isFilled this.startDate)}}
+          <div class="lp-edu-date">
+            {{this.startDate}}
+            {{#if (isFilled this.endDate)}} – {{this.endDate}}{{/if}}
+          </div>
+          {{/if}}
+
+        </div>
+        {{/if}}
       {{/each}}
+
     </div>
   </div>
 </section>
 {{/if}}
 
-{{!-- CERTIFICATIONS — credentials --}}
-{{#if certifications.length}}
+
+
+{{!-- CERTIFICATIONS --}}
+{{#if (isFilled certifications)}}
 <section class="lp-certifications">
   <div class="lp-container">
+
     <div class="lp-section-header">
       <h2>Certifications</h2>
       <p class="lp-section-subtitle">Verified credentials.</p>
     </div>
+
     <div class="lp-cert-grid">
+
       {{#each certifications}}
-      <div class="lp-cert-card">
-        {{#if this.images.length}}
-        <div class="lp-cert-image">
-          <img src="{{this.images.[0]}}" alt="{{this.name}}">
+        {{#if (isFilled this.name)}}
+        <div class="lp-cert-card">
+
+          {{#if (isFilled this.images)}}
+          <div class="lp-cert-image">
+            <img src="{{this.images.[0]}}" alt="{{this.name}}">
+          </div>
+          {{/if}}
+
+          <div class="lp-cert-info">
+
+            <h3>{{this.name}}</h3>
+
+            {{#if (isFilled this.issuer)}}
+              <div class="lp-cert-issuer">{{this.issuer}}</div>
+            {{/if}}
+
+            {{#if (isFilled this.year)}}
+              <div class="lp-cert-year">{{this.year}}</div>
+            {{/if}}
+
+          </div>
         </div>
         {{/if}}
-        <div class="lp-cert-info">
-          <h3>{{this.name}}</h3>
-          <div class="lp-cert-issuer">{{this.issuer}}</div>
-          <div class="lp-cert-year">{{this.year}}</div>
-        </div>
-      </div>
       {{/each}}
+
     </div>
   </div>
 </section>
 {{/if}}
 
-{{!-- ACHIEVEMENTS — recognition --}}
-{{#if achievements.length}}
+
+
+{{!-- ACHIEVEMENTS --}}
+{{#if (isFilled achievements)}}
 <section class="lp-achievements">
   <div class="lp-container">
+
     <div class="lp-section-header">
       <h2>Achievements</h2>
       <p class="lp-section-subtitle">Recognition and milestones.</p>
     </div>
+
     <div class="lp-achievements-grid">
+
       {{#each achievements}}
-      <div class="lp-achievement-card">
-        <div class="lp-achievement-icon"><i class="fas fa-trophy"></i></div>
-        <h3>{{this.title}}</h3>
-        <p>{{this.description}}</p>
-        <div class="lp-achievement-date">{{this.date}}</div>
-      </div>
+        {{#if (isFilled this.title)}}
+        <div class="lp-achievement-card">
+
+          <div class="lp-achievement-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+
+          <h3>{{this.title}}</h3>
+
+          {{#if (isFilled this.description)}}
+            <p>{{this.description}}</p>
+          {{/if}}
+
+          {{#if (isFilled this.date)}}
+            <div class="lp-achievement-date">{{this.date}}</div>
+          {{/if}}
+
+        </div>
+        {{/if}}
       {{/each}}
+
     </div>
   </div>
 </section>
 {{/if}}
 
+
+
 <footer class="lp-footer">
   <div class="lp-container">
-    <p>© {{personal.name}}. All rights reserved.</p>
+    {{#if (isFilled personal.name)}}
+      <p>© {{personal.name}}. All rights reserved.</p>
+    {{/if}}
     <p class="lp-footer-colophon">Designed in Craftly</p>
   </div>
 </footer>

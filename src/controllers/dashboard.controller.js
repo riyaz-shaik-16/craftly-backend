@@ -24,6 +24,17 @@ export const getDashboard = async (req, res, next) => {
       });
     }
 
+    if (portfolio.status === "new") {
+      return res.status(200).json({
+        success: true,
+        state: "new",
+        portfolio: {
+          template: portfolio.template,
+          updatedAt: portfolio.updatedAt
+        }
+      });
+    }
+
     // Return live state with deployed URL
     return res.status(200).json({
       success: true,

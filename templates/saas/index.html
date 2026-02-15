@@ -1,230 +1,393 @@
-{{!-- HERO — product-first --}}
 <section class="sp-hero">
   <div class="container">
     <div class="sp-hero-grid">
+
       <div class="sp-hero-text">
+
         <span class="sp-overline">🚀 SHIPPING DAILY</span>
-        <h1>{{personal.name}}</h1>
-        <div class="sp-title">{{personal.title}}</div>
-        <p class="sp-bio">{{personal.summary}}</p>
 
+        {{#if (isFilled personal.name)}}
+          <h1>{{personal.name}}</h1>
+        {{/if}}
+
+        {{#if (isFilled personal.title)}}
+          <div class="sp-title">{{personal.title}}</div>
+        {{/if}}
+
+        {{#if (isFilled personal.summary)}}
+          <p class="sp-bio">{{personal.summary}}</p>
+        {{/if}}
+
+        {{#if (or (isFilled personal.email) (isFilled personal.phone) (isFilled personal.location))}}
         <div class="sp-contact">
-          {{#if personal.email}}
-          <span><i class="fas fa-envelope"></i> {{personal.email}}</span>
-          {{/if}}
-          {{#if personal.phone}}
-          <span><i class="fas fa-phone-alt"></i> {{personal.phone}}</span>
-          {{/if}}
-          {{#if personal.location}}
-          <span><i class="fas fa-map-marker-alt"></i> {{personal.location}}</span>
-          {{/if}}
-        </div>
 
-        {{#if socialLinks.length}}
+          {{#if (isFilled personal.email)}}
+            <span><i class="fas fa-envelope"></i> {{personal.email}}</span>
+          {{/if}}
+
+          {{#if (isFilled personal.phone)}}
+            <span><i class="fas fa-phone-alt"></i> {{personal.phone}}</span>
+          {{/if}}
+
+          {{#if (isFilled personal.location)}}
+            <span><i class="fas fa-map-marker-alt"></i> {{personal.location}}</span>
+          {{/if}}
+
+        </div>
+        {{/if}}
+
+        {{#if (isFilled socialLinks)}}
         <div class="sp-social">
           {{#each socialLinks}}
-            <a href="{{this.url}}" target="_blank" rel="noopener" aria-label="{{this.platform}}">
-              {{#if (eq this.platform "website")}}
-              <i class="fas fa-globe"></i>
-              {{else}}
-              <i class="fab fa-{{this.platform}}"></i>
-              {{/if}}
-            </a>
+            {{#if (and (isFilled this.url) (isFilled this.platform))}}
+              <a href="{{this.url}}" target="_blank" rel="noopener" aria-label="{{this.platform}}">
+                {{#if (eq this.platform "website")}}
+                  <i class="fas fa-globe"></i>
+                {{else}}
+                  <i class="fab fa-{{this.platform}}"></i>
+                {{/if}}
+              </a>
+            {{/if}}
           {{/each}}
         </div>
         {{/if}}
+
       </div>
 
+
+
       <div class="sp-hero-visual">
-        {{#if personal.avatar}}
-        <img src="{{personal.avatar}}" alt="{{personal.name}}" class="sp-avatar">
+
+        {{#if (isFilled personal.avatar)}}
+          <img src="{{personal.avatar}}" alt="{{personal.name}}" class="sp-avatar">
         {{else}}
-        <div class="sp-avatar-placeholder">{{firstLetter personal.name}}</div>
+          {{#if (isFilled personal.name)}}
+            <div class="sp-avatar-placeholder">
+              {{firstLetter personal.name}}
+            </div>
+          {{/if}}
         {{/if}}
+
         <div class="sp-app-mock">
           <div class="sp-mock-dot"></div>
           <div class="sp-mock-dot"></div>
           <div class="sp-mock-dot"></div>
         </div>
+
       </div>
+
     </div>
   </div>
 </section>
 
-{{!-- PROJECTS as SaaS features --}}
-{{#if projects.length}}
+
+
+{{!-- PROJECTS --}}
+{{#if (isFilled projects)}}
 <section class="sp-features">
   <div class="container">
+
     <div class="sp-section-header">
       <span class="sp-section-sub">WHAT I BUILD</span>
       <h2>Products & features</h2>
-      <p>Real‑world applications, designed and engineered.</p>
+      <p>Real-world applications, designed and engineered.</p>
     </div>
 
     <div class="sp-features-grid">
+
       {{#each projects}}
-      <div class="sp-feature-card">
-        {{#if this.images.length}}
-        <div class="sp-feature-image">
-          <img src="{{this.images.[0]}}" alt="{{this.title}}">
-        </div>
-        {{/if}}
-        <div class="sp-feature-content">
-          <div class="sp-feature-header">
-            <h3>{{this.title}}</h3>
-            {{#if this.featured}}
-            <span class="sp-featured-badge"><i class="fas fa-bolt"></i> POPULAR</span>
-            {{/if}}
-          </div>
-          <p>{{this.description}}</p>
-          {{#if this.techStack.length}}
-          <div class="sp-tech-pills">
-            {{#each this.techStack}}
-            <span class="sp-pill">{{this}}</span>
-            {{/each}}
+        {{#if (isFilled this.title)}}
+        <div class="sp-feature-card">
+
+          {{#if (isFilled this.images)}}
+          <div class="sp-feature-image">
+            <img src="{{this.images.[0]}}" alt="{{this.title}}">
           </div>
           {{/if}}
-          <div class="sp-feature-links">
-            {{#if this.githubLink}}
-            <a href="{{this.githubLink}}" target="_blank" rel="noopener"><i class="fab fa-github"></i> Code</a>
+
+          <div class="sp-feature-content">
+
+            <div class="sp-feature-header">
+
+              <h3>{{this.title}}</h3>
+
+              {{#if this.featured}}
+                <span class="sp-featured-badge">
+                  <i class="fas fa-bolt"></i> POPULAR
+                </span>
+              {{/if}}
+
+            </div>
+
+            {{#if (isFilled this.description)}}
+              <p>{{this.description}}</p>
             {{/if}}
-            {{#if this.demoLink}}
-            <a href="{{this.demoLink}}" target="_blank" rel="noopener"><i class="fas fa-play-circle"></i> Demo</a>
+
+            {{#if (isFilled this.techStack)}}
+            <div class="sp-tech-pills">
+              {{#each this.techStack}}
+                {{#if (isFilled this)}}
+                  <span class="sp-pill">{{this}}</span>
+                {{/if}}
+              {{/each}}
+            </div>
             {{/if}}
-            {{#if this.liveLink}}
-            <a href="{{this.liveLink}}" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Live</a>
+
+            {{#if (or (isFilled this.githubLink) (isFilled this.demoLink) (isFilled this.liveLink))}}
+            <div class="sp-feature-links">
+
+              {{#if (isFilled this.githubLink)}}
+                <a href="{{this.githubLink}}" target="_blank" rel="noopener">
+                  <i class="fab fa-github"></i> Code
+                </a>
+              {{/if}}
+
+              {{#if (isFilled this.demoLink)}}
+                <a href="{{this.demoLink}}" target="_blank" rel="noopener">
+                  <i class="fas fa-play-circle"></i> Demo
+                </a>
+              {{/if}}
+
+              {{#if (isFilled this.liveLink)}}
+                <a href="{{this.liveLink}}" target="_blank" rel="noopener">
+                  <i class="fas fa-external-link-alt"></i> Live
+                </a>
+              {{/if}}
+
+            </div>
             {{/if}}
+
           </div>
         </div>
-      </div>
+        {{/if}}
       {{/each}}
+
     </div>
   </div>
 </section>
 {{/if}}
 
-{{!-- EXPERIENCE as startup journey --}}
-{{#if experience.length}}
+
+
+{{!-- EXPERIENCE --}}
+{{#if (isFilled experience)}}
 <section class="sp-journey">
   <div class="container">
+
     <div class="sp-section-header">
       <span class="sp-section-sub">WORK STORY</span>
       <h2>Growth & impact</h2>
     </div>
+
     <div class="sp-timeline">
+
       {{#each experience}}
-      <div class="sp-timeline-item">
-        <div class="sp-timeline-icon">
-          <i class="fas fa-briefcase"></i>
-        </div>
-        <div class="sp-timeline-content">
-          <div class="sp-timeline-header">
-            <div>
-              <h3>{{this.company}}</h3>
-              <span class="sp-role">{{this.position}}</span>
-            </div>
-            <span class="sp-date">{{this.startDate}} – {{this.endDate}}</span>
+        {{#if (isFilled this.company)}}
+        <div class="sp-timeline-item">
+
+          <div class="sp-timeline-icon">
+            <i class="fas fa-briefcase"></i>
           </div>
-          <p>{{this.description}}</p>
+
+          <div class="sp-timeline-content">
+
+            <div class="sp-timeline-header">
+
+              <div>
+                <h3>{{this.company}}</h3>
+                {{#if (isFilled this.position)}}
+                  <span class="sp-role">{{this.position}}</span>
+                {{/if}}
+              </div>
+
+              {{#if (isFilled this.startDate)}}
+              <span class="sp-date">
+                {{this.startDate}}
+                {{#if (isFilled this.endDate)}} – {{this.endDate}}{{/if}}
+              </span>
+              {{/if}}
+
+            </div>
+
+            {{#if (isFilled this.description)}}
+              <p>{{this.description}}</p>
+            {{/if}}
+
+          </div>
         </div>
-      </div>
+        {{/if}}
       {{/each}}
+
     </div>
   </div>
 </section>
 {{/if}}
 
-{{!-- SKILLS as tech stack cloud --}}
-{{#if skills.length}}
+
+
+{{!-- SKILLS --}}
+{{#if (isFilled skills)}}
 <section class="sp-stack">
   <div class="container">
+
     <div class="sp-section-header">
       <span class="sp-section-sub">TOOLCHAIN</span>
       <h2>Tech stack</h2>
     </div>
+
     <div class="sp-stack-cloud">
       {{#each skills}}
-      <span class="sp-stack-tag">{{this}}</span>
+        {{#if (isFilled this)}}
+          <span class="sp-stack-tag">{{this}}</span>
+        {{/if}}
       {{/each}}
     </div>
+
   </div>
 </section>
 {{/if}}
 
-{{!-- EDUCATION as credentials --}}
-{{#if education.length}}
+
+
+{{!-- EDUCATION --}}
+{{#if (isFilled education)}}
 <section class="sp-credentials">
   <div class="container">
+
     <div class="sp-section-header">
       <span class="sp-section-sub">LEARNING</span>
       <h2>Education</h2>
     </div>
+
     <div class="sp-cred-grid">
+
       {{#each education}}
-      <div class="sp-cred-card">
-        <div class="sp-cred-icon"><i class="fas fa-graduation-cap"></i></div>
-        <h3>{{this.institution}}</h3>
-        <div class="sp-cred-degree">{{this.degree}}{{#if this.field}}, {{this.field}}{{/if}}</div>
-        <div class="sp-cred-date">{{this.startDate}} – {{this.endDate}}</div>
-      </div>
+        {{#if (isFilled this.institution)}}
+        <div class="sp-cred-card">
+
+          <div class="sp-cred-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+
+          <h3>{{this.institution}}</h3>
+
+          {{#if (isFilled this.degree)}}
+          <div class="sp-cred-degree">
+            {{this.degree}}
+            {{#if (isFilled this.field)}}, {{this.field}}{{/if}}
+          </div>
+          {{/if}}
+
+          {{#if (isFilled this.startDate)}}
+          <div class="sp-cred-date">
+            {{this.startDate}}
+            {{#if (isFilled this.endDate)}} – {{this.endDate}}{{/if}}
+          </div>
+          {{/if}}
+
+        </div>
+        {{/if}}
       {{/each}}
+
     </div>
   </div>
 </section>
 {{/if}}
 
+
+
 {{!-- CERTIFICATIONS --}}
-{{#if certifications.length}}
+{{#if (isFilled certifications)}}
 <section class="sp-certs">
   <div class="container">
+
     <div class="sp-section-header">
       <span class="sp-section-sub">BADGES</span>
       <h2>Certifications</h2>
     </div>
+
     <div class="sp-certs-grid">
+
       {{#each certifications}}
-      <div class="sp-cert-card">
-        {{#if this.images.length}}
-        <div class="sp-cert-image">
-          <img src="{{this.images.[0]}}" alt="{{this.name}}">
+        {{#if (isFilled this.name)}}
+        <div class="sp-cert-card">
+
+          {{#if (isFilled this.images)}}
+          <div class="sp-cert-image">
+            <img src="{{this.images.[0]}}" alt="{{this.name}}">
+          </div>
+          {{/if}}
+
+          <div class="sp-cert-content">
+
+            <h3>{{this.name}}</h3>
+
+            {{#if (isFilled this.issuer)}}
+              <div class="sp-cert-issuer">{{this.issuer}}</div>
+            {{/if}}
+
+            {{#if (isFilled this.year)}}
+              <div class="sp-cert-year">{{this.year}}</div>
+            {{/if}}
+
+          </div>
+
         </div>
         {{/if}}
-        <div class="sp-cert-content">
-          <h3>{{this.name}}</h3>
-          <div class="sp-cert-issuer">{{this.issuer}}</div>
-          <div class="sp-cert-year">{{this.year}}</div>
-        </div>
-      </div>
       {{/each}}
+
     </div>
   </div>
 </section>
 {{/if}}
 
+
+
 {{!-- ACHIEVEMENTS --}}
-{{#if achievements.length}}
+{{#if (isFilled achievements)}}
 <section class="sp-achievements">
   <div class="container">
+
     <div class="sp-section-header">
       <span class="sp-section-sub">WINS</span>
       <h2>Achievements</h2>
     </div>
+
     <div class="sp-achievements-grid">
+
       {{#each achievements}}
-      <div class="sp-achievement-card">
-        <div class="sp-achievement-icon"><i class="fas fa-trophy"></i></div>
-        <h3>{{this.title}}</h3>
-        <p>{{this.description}}</p>
-        <div class="sp-achievement-date">{{this.date}}</div>
-      </div>
+        {{#if (isFilled this.title)}}
+        <div class="sp-achievement-card">
+
+          <div class="sp-achievement-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+
+          <h3>{{this.title}}</h3>
+
+          {{#if (isFilled this.description)}}
+            <p>{{this.description}}</p>
+          {{/if}}
+
+          {{#if (isFilled this.date)}}
+            <div class="sp-achievement-date">{{this.date}}</div>
+          {{/if}}
+
+        </div>
+        {{/if}}
       {{/each}}
+
     </div>
   </div>
 </section>
 {{/if}}
 
+
+
 <footer class="sp-footer">
   <div class="container">
-    <p>© {{personal.name}} · Built for production with Craftly</p>
+    {{#if (isFilled personal.name)}}
+      <p>© {{personal.name}} · Built for production with Craftly</p>
+    {{/if}}
   </div>
 </footer>

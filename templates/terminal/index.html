@@ -1,19 +1,17 @@
-{{!-- DEVELOPER TERMINAL — matrix enhanced, glitch core, full hack --}}
 <div class="dt-system-shell">
-  {{!-- MATRIX RAIN BACKGROUND --}}
+
   <div class="dt-matrix-bg"></div>
   <div class="dt-matrix-overlay"></div>
-  
-  {{!-- CRT EFFECT LAYERS --}}
+
   <div class="dt-crt">
     <div class="dt-scanline"></div>
     <div class="dt-interlacing"></div>
     <div class="dt-glow"></div>
   </div>
 
-  {{!-- TERMINAL WINDOW --}}
+
   <div class="dt-window">
-    {{!-- WINDOW HEADER --}}
+
     <div class="dt-window-header">
       <span class="dt-window-title">root@portfolio:~</span>
       <div class="dt-window-controls">
@@ -23,361 +21,386 @@
       </div>
     </div>
 
-    {{!-- TERMINAL BODY --}}
+
+
     <div class="dt-terminal-body">
-      {{!-- BOOT SEQUENCE WITH COUNTDOWN --}}
+
+      {{!-- BOOT --}}
       <div class="dt-boot-sequence">
-        <div class="dt-line dt-ascii">
-          <pre>
-  ████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗ █████╗ ██╗     
-  ╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗██║     
-     ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║███████║██║     
-     ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██╔══██║██║     
-     ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██║  ██║███████╗
-     ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝
-          </pre>
-        </div>
         <div class="dt-line dt-status">
           <span class="dt-prompt">[  OK  ]</span> Loaded kernel 5.15.0-hacker
         </div>
+
+        {{#if (isFilled personal.name)}}
         <div class="dt-line dt-status">
           <span class="dt-prompt">[  OK  ]</span> Mounted /home/{{personal.name}}
         </div>
+        {{/if}}
+
         <div class="dt-line dt-status">
           <span class="dt-prompt">[  OK  ]</span> Initialized neural interface
         </div>
+
         <div class="dt-line dt-progress">
-          <span class="dt-prompt">[ INFO ]</span> Booting portfolio v2.3.7 ...
+          <span class="dt-prompt">[ INFO ]</span> Booting portfolio ...
           <span class="dt-bar">[##########]</span> 100%
         </div>
-        <div class="dt-line dt-blank"></div>
       </div>
 
-      {{!-- WELCOME BANNER --}}
+
+
+      {{!-- LOGIN --}}
+      {{#if (isFilled personal.name)}}
       <div class="dt-welcome">
+
         <div class="dt-line dt-prompt-line">
           <span class="dt-prompt">></span> login --as {{personal.name}}
         </div>
-        <div class="dt-line dt-output">
-          <span class="dt-output-highlight">Welcome, {{personal.name}} ({{personal.title}})</span>
-        </div>
-        <div class="dt-line dt-output">
-          <span class="dt-output-dim">Last login: <span class="dt-date">{{currentDate}}</span> from tty1</span>
-        </div>
-        <div class="dt-line dt-blank"></div>
-      </div>
 
-      {{!-- SYSTEM INFO PANEL --}}
+        <div class="dt-line dt-output">
+          <span class="dt-output-highlight">
+            Welcome{{#if (isFilled personal.title)}}, {{personal.name}} ({{personal.title}}){{else}}, {{personal.name}}{{/if}}
+          </span>
+        </div>
+
+      </div>
+      {{/if}}
+
+
+
+      {{!-- SYSTEM INFO --}}
+      {{#if (isFilled personal.name)}}
       <div class="dt-panel">
         <div class="dt-panel-header">
           <span class="dt-panel-title">⚡ SYSTEM INFO</span>
         </div>
         <div class="dt-panel-body">
           <div class="dt-grid-2">
+
             <div class="dt-info-row">
               <span class="dt-info-label">HOSTNAME:</span>
               <span class="dt-info-value">{{personal.name}}.portfolio</span>
             </div>
+
             <div class="dt-info-row">
               <span class="dt-info-label">UPTIME:</span>
               <span class="dt-info-value">∞</span>
             </div>
+
             <div class="dt-info-row">
               <span class="dt-info-label">OS:</span>
               <span class="dt-info-value">HackerOS 1.0</span>
             </div>
-            <div class="dt-info-row">
-              <span class="dt-info-label">SHELL:</span>
-              <span class="dt-info-value">zsh 8.1.0</span>
-            </div>
-            <div class="dt-info-row">
-              <span class="dt-info-label">TERMINAL:</span>
-              <span class="dt-info-value">xterm-256color</span>
-            </div>
+
           </div>
         </div>
       </div>
-      <div class="dt-line dt-blank"></div>
+      {{/if}}
 
-      {{!-- USER PROFILE CARD (ASCII / GLITCH) --}}
+
+
+      {{!-- PROFILE --}}
+      {{#if (or (isFilled personal.name) (isFilled personal.title) (isFilled personal.summary))}}
       <div class="dt-panel">
         <div class="dt-panel-header">
           <span class="dt-panel-title">👤 USER PROFILE</span>
         </div>
         <div class="dt-panel-body">
-          <div class="dt-profile-grid">
-            <div class="dt-avatar-container">
-              {{#if personal.avatar}}
-              <img src="{{personal.avatar}}" alt="{{personal.name}}" class="dt-avatar-glitch">
-              {{else}}
-              <div class="dt-avatar-ascii-enhanced">
-                <pre>
-    ╔══════════════════╗
-    ║                  ║
-    ║      {{firstLetter personal.name}}         ║
-    ║                  ║
-    ╚══════════════════╝
-                </pre>
-              </div>
-              {{/if}}
-            </div>
-            <div class="dt-profile-info">
-              <div class="dt-info-row">
-                <span class="dt-info-label">NAME:</span>
-                <span class="dt-info-value dt-glitch" data-text="{{personal.name}}">{{personal.name}}</span>
-              </div>
-              <div class="dt-info-row">
-                <span class="dt-info-label">TITLE:</span>
-                <span class="dt-info-value">{{personal.title}}</span>
-              </div>
-              <div class="dt-info-row">
-                <span class="dt-info-label">BIO:</span>
-                <span class="dt-info-value dt-bio">{{personal.summary}}</span>
-              </div>
-            </div>
+
+          {{#if (isFilled personal.name)}}
+          <div class="dt-info-row">
+            <span class="dt-info-label">NAME:</span>
+            <span class="dt-info-value">{{personal.name}}</span>
           </div>
+          {{/if}}
+
+          {{#if (isFilled personal.title)}}
+          <div class="dt-info-row">
+            <span class="dt-info-label">TITLE:</span>
+            <span class="dt-info-value">{{personal.title}}</span>
+          </div>
+          {{/if}}
+
+          {{#if (isFilled personal.summary)}}
+          <div class="dt-info-row">
+            <span class="dt-info-label">BIO:</span>
+            <span class="dt-info-value">{{personal.summary}}</span>
+          </div>
+          {{/if}}
+
         </div>
       </div>
-      <div class="dt-line dt-blank"></div>
+      {{/if}}
 
-      {{!-- CONTACT PANEL --}}
+
+
+      {{!-- CONTACT --}}
+      {{#if (or (isFilled personal.email) (isFilled personal.phone) (isFilled personal.location) (isFilled socialLinks))}}
       <div class="dt-panel">
         <div class="dt-panel-header">
           <span class="dt-panel-title">📡 CONTACT CHANNELS</span>
         </div>
         <div class="dt-panel-body">
-          <div class="dt-grid-2">
-            {{#if personal.email}}
-            <div class="dt-contact-row">
-              <span class="dt-contact-icon">📧</span>
-              <span class="dt-contact-label">EMAIL:</span>
-              <a href="mailto:{{personal.email}}" class="dt-contact-link">{{personal.email}}</a>
-            </div>
-            {{/if}}
-            {{#if personal.phone}}
-            <div class="dt-contact-row">
-              <span class="dt-contact-icon">📱</span>
-              <span class="dt-contact-label">PHONE:</span>
-              <span class="dt-contact-value">{{personal.phone}}</span>
-            </div>
-            {{/if}}
-            {{#if personal.location}}
-            <div class="dt-contact-row">
-              <span class="dt-contact-icon">📍</span>
-              <span class="dt-contact-label">LOCATION:</span>
-              <span class="dt-contact-value">{{personal.location}}</span>
-            </div>
-            {{/if}}
-          </div>
-          {{#if socialLinks.length}}
-          <div class="dt-social-grid">
-            {{#each socialLinks}}
-            <a href="{{this.url}}" target="_blank" rel="noopener" class="dt-social-badge">
-              {{#if (eq this.platform "website")}}🌐{{else if (eq this.platform "github")}}🐙{{else if (eq this.platform "linkedin")}}🔗{{else if (eq this.platform "twitter")}}🐦{{else}}🔌{{/if}}
-              {{this.platform}}
-            </a>
-            {{/each}}
+
+          {{#if (isFilled personal.email)}}
+          <div class="dt-contact-row">
+            📧 <a href="mailto:{{personal.email}}" class="dt-contact-link">{{personal.email}}</a>
           </div>
           {{/if}}
+
+          {{#if (isFilled personal.phone)}}
+          <div class="dt-contact-row">
+            📱 <span>{{personal.phone}}</span>
+          </div>
+          {{/if}}
+
+          {{#if (isFilled personal.location)}}
+          <div class="dt-contact-row">
+            📍 <span>{{personal.location}}</span>
+          </div>
+          {{/if}}
+
+          {{#each socialLinks}}
+            {{#if (and (isFilled this.url) (isFilled this.platform))}}
+            <a href="{{this.url}}" target="_blank" rel="noopener" class="dt-social-badge">
+              {{this.platform}}
+            </a>
+            {{/if}}
+          {{/each}}
+
         </div>
       </div>
-      <div class="dt-line dt-blank"></div>
+      {{/if}}
 
-      {{!-- SKILLS — tool stack with versions --}}
-      {{#if skills.length}}
+
+
+      {{!-- SKILLS --}}
+      {{#if (isFilled skills)}}
       <div class="dt-panel">
         <div class="dt-panel-header">
           <span class="dt-panel-title">🔧 TOOLCHAIN</span>
         </div>
         <div class="dt-panel-body">
-          <div class="dt-skill-matrix">
-            {{#each skills}}
+
+          {{#each skills}}
+            {{#if (isFilled this)}}
             <div class="dt-skill-item">
-              <span class="dt-skill-name">{{this}}</span>
-              <span class="dt-skill-version">v{{randomVersion}}</span>
-              <span class="dt-skill-bar">[{{progressBar}}]</span>
+              {{this}}
             </div>
-            {{/each}}
-          </div>
+            {{/if}}
+          {{/each}}
+
         </div>
       </div>
-      <div class="dt-line dt-blank"></div>
       {{/if}}
 
-      {{!-- EXPERIENCE — command history with timestamps --}}
-      {{#if experience.length}}
+
+
+      {{!-- EXPERIENCE --}}
+      {{#if (isFilled experience)}}
       <div class="dt-panel">
         <div class="dt-panel-header">
           <span class="dt-panel-title">📜 COMMAND HISTORY</span>
-          <span class="dt-panel-counter">{{experience.length}} entries</span>
         </div>
         <div class="dt-panel-body">
-          <div class="dt-history-table">
-            <div class="dt-history-header">
-              <span class="dt-history-time">TIMESTAMP</span>
-              <span class="dt-history-command">COMMAND</span>
-              <span class="dt-history-args">ARGS</span>
-            </div>
-            {{#each experience}}
+
+          {{#each experience}}
+            {{#if (isFilled this.company)}}
             <div class="dt-history-row">
-              <span class="dt-history-time">{{this.startDate}}</span>
-              <span class="dt-history-command">cd</span>
-              <span class="dt-history-args">{{this.company}}/ && ./{{this.position}}.sh</span>
+
+              {{#if (isFilled this.startDate)}}
+                <span>{{this.startDate}}</span>
+              {{/if}}
+
+              <span>{{this.company}}</span>
+
+              {{#if (isFilled this.position)}}
+                <span>{{this.position}}</span>
+              {{/if}}
+
             </div>
+
+            {{#if (isFilled this.description)}}
             <div class="dt-history-output">
-              <span class="dt-output-icon">📤</span>
-              <span class="dt-output-text">{{this.description}}</span>
+              {{this.description}}
             </div>
-            {{/each}}
-          </div>
+            {{/if}}
+
+            {{/if}}
+          {{/each}}
+
         </div>
       </div>
-      <div class="dt-line dt-blank"></div>
       {{/if}}
 
-      {{!-- PROJECTS — git repository tree --}}
-      {{#if projects.length}}
+
+
+      {{!-- PROJECTS --}}
+      {{#if (isFilled projects)}}
       <div class="dt-panel">
         <div class="dt-panel-header">
           <span class="dt-panel-title">📁 REPOSITORIES</span>
-          <span class="dt-panel-counter">{{projects.length}} active</span>
         </div>
         <div class="dt-panel-body">
-          <div class="dt-repo-list">
-            {{#each projects}}
+
+          {{#each projects}}
+            {{#if (isFilled this.title)}}
             <div class="dt-repo-item">
-              <div class="dt-repo-header">
-                <span class="dt-repo-icon">{{#if this.featured}}⭐{{else}}📂{{/if}}</span>
-                <span class="dt-repo-name">{{this.title}}</span>
-                <span class="dt-repo-branch">main</span>
-                <span class="dt-repo-status">● active</span>
+
+              <div class="dt-repo-name">
+                {{#if this.featured}}⭐{{else}}📂{{/if}} {{this.title}}
               </div>
-              <div class="dt-repo-description">{{this.description}}</div>
-              {{#if this.techStack.length}}
+
+              {{#if (isFilled this.description)}}
+                <div class="dt-repo-description">{{this.description}}</div>
+              {{/if}}
+
+              {{#if (isFilled this.techStack)}}
               <div class="dt-repo-tags">
                 {{#each this.techStack}}
-                <span class="dt-repo-tag">{{this}}</span>
+                  {{#if (isFilled this)}}
+                    <span>{{this}}</span>
+                  {{/if}}
                 {{/each}}
               </div>
               {{/if}}
+
+              {{#if (or (isFilled this.githubLink) (isFilled this.demoLink) (isFilled this.liveLink))}}
               <div class="dt-repo-links">
-                {{#if this.githubLink}}
-                <a href="{{this.githubLink}}" target="_blank" class="dt-repo-link">
-                  <span class="dt-link-icon">🐙</span> source
-                </a>
+
+                {{#if (isFilled this.githubLink)}}
+                  <a href="{{this.githubLink}}" target="_blank">source</a>
                 {{/if}}
-                {{#if this.demoLink}}
-                <a href="{{this.demoLink}}" target="_blank" class="dt-repo-link">
-                  <span class="dt-link-icon">🎮</span> demo
-                </a>
+
+                {{#if (isFilled this.demoLink)}}
+                  <a href="{{this.demoLink}}" target="_blank">demo</a>
                 {{/if}}
-                {{#if this.liveLink}}
-                <a href="{{this.liveLink}}" target="_blank" class="dt-repo-link">
-                  <span class="dt-link-icon">🌐</span> live
-                </a>
+
+                {{#if (isFilled this.liveLink)}}
+                  <a href="{{this.liveLink}}" target="_blank">live</a>
                 {{/if}}
+
               </div>
+              {{/if}}
+
             </div>
-            {{/each}}
-          </div>
+            {{/if}}
+          {{/each}}
+
         </div>
       </div>
-      <div class="dt-line dt-blank"></div>
       {{/if}}
 
-      {{!-- EDUCATION — degrees as certificates --}}
-      {{#if education.length}}
+
+
+      {{!-- EDUCATION --}}
+      {{#if (isFilled education)}}
       <div class="dt-panel">
         <div class="dt-panel-header">
           <span class="dt-panel-title">🎓 CERTIFICATES</span>
         </div>
         <div class="dt-panel-body">
-          <div class="dt-edu-list">
-            {{#each education}}
+
+          {{#each education}}
+            {{#if (isFilled this.institution)}}
             <div class="dt-edu-card">
-              <div class="dt-edu-icon">📜</div>
-              <div class="dt-edu-details">
-                <div class="dt-edu-degree">{{this.degree}}{{#if this.field}}, {{this.field}}{{/if}}</div>
-                <div class="dt-edu-institution">{{this.institution}}</div>
-                <div class="dt-edu-date">{{this.startDate}} – {{this.endDate}}</div>
-              </div>
+
+              <div>{{this.institution}}</div>
+
+              {{#if (isFilled this.degree)}}
+                <div>
+                  {{this.degree}}
+                  {{#if (isFilled this.field)}}, {{this.field}}{{/if}}
+                </div>
+              {{/if}}
+
+              {{#if (isFilled this.startDate)}}
+                <div>
+                  {{this.startDate}}
+                  {{#if (isFilled this.endDate)}} – {{this.endDate}}{{/if}}
+                </div>
+              {{/if}}
+
             </div>
-            {{/each}}
-          </div>
+            {{/if}}
+          {{/each}}
+
         </div>
       </div>
-      <div class="dt-line dt-blank"></div>
       {{/if}}
 
-      {{!-- CERTIFICATIONS — security badges --}}
-      {{#if certifications.length}}
+
+
+      {{!-- CERTIFICATIONS --}}
+      {{#if (isFilled certifications)}}
       <div class="dt-panel">
         <div class="dt-panel-header">
           <span class="dt-panel-title">🔐 SECURITY CLEARANCES</span>
         </div>
         <div class="dt-panel-body">
-          <div class="dt-cert-grid">
-            {{#each certifications}}
+
+          {{#each certifications}}
+            {{#if (isFilled this.name)}}
             <div class="dt-cert-badge">
-              {{#if this.images.length}}
-              <div class="dt-cert-seal">
-                <img src="{{this.images.[0]}}" alt="{{this.name}}">
-              </div>
-              {{else}}
-              <div class="dt-cert-seal-placeholder">🛡️</div>
+
+              <div>{{this.name}}</div>
+
+              {{#if (isFilled this.issuer)}}
+                <div>{{this.issuer}}</div>
               {{/if}}
-              <div class="dt-cert-info">
-                <div class="dt-cert-name">{{this.name}}</div>
-                <div class="dt-cert-issuer">{{this.issuer}}</div>
-                <div class="dt-cert-year">{{this.year}}</div>
-              </div>
+
+              {{#if (isFilled this.year)}}
+                <div>{{this.year}}</div>
+              {{/if}}
+
             </div>
-            {{/each}}
-          </div>
+            {{/if}}
+          {{/each}}
+
         </div>
       </div>
-      <div class="dt-line dt-blank"></div>
       {{/if}}
 
-      {{!-- ACHIEVEMENTS — unlockables --}}
-      {{#if achievements.length}}
+
+
+      {{!-- ACHIEVEMENTS --}}
+      {{#if (isFilled achievements)}}
       <div class="dt-panel">
         <div class="dt-panel-header">
           <span class="dt-panel-title">🏆 ACHIEVEMENTS UNLOCKED</span>
         </div>
         <div class="dt-panel-body">
-          <div class="dt-achievement-list">
-            {{#each achievements}}
+
+          {{#each achievements}}
+            {{#if (isFilled this.title)}}
             <div class="dt-achievement-entry">
-              <span class="dt-achievement-trophy">🏅</span>
-              <span class="dt-achievement-title">{{this.title}}</span>
-              <span class="dt-achievement-desc">— {{this.description}}</span>
-              <span class="dt-achievement-date">[{{this.date}}]</span>
+              🏅 {{this.title}}
+              {{#if (isFilled this.description)}} — {{this.description}}{{/if}}
+              {{#if (isFilled this.date)}} [{{this.date}}]{{/if}}
             </div>
-            {{/each}}
-          </div>
+            {{/if}}
+          {{/each}}
+
         </div>
       </div>
-      <div class="dt-line dt-blank"></div>
       {{/if}}
 
-      {{!-- ACTIVE PROMPT --}}
+
+
+      {{!-- PROMPT --}}
+      {{#if (isFilled personal.name)}}
       <div class="dt-active-prompt">
-        <div class="dt-line dt-prompt-line">
-          <span class="dt-prompt-user">{{personal.name}}@portfolio</span>:<span class="dt-prompt-path">~</span><span class="dt-prompt-dollar">$</span>
-          <span class="dt-cursor-blink">█</span>
-        </div>
+        <span>{{personal.name}}@portfolio:~$ █</span>
+      </div>
+      {{/if}}
+
+
+
+      {{!-- FOOTER --}}
+      <div class="dt-footer">
+        <div>sessions saved | Exit status: 0</div>
       </div>
 
-      {{!-- FOOTER WITH EXIT STATUS --}}
-      <div class="dt-footer">
-        <div class="dt-line dt-footer-line">
-          <span class="dt-footer-prompt">></span> sessions saved | memory: 42% | battery: ∞
-        </div>
-        <div class="dt-line dt-exit-status">
-          <span class="dt-status-indicator">●</span> Exit status: 0 (SUCCESS)
-        </div>
-      </div>
     </div>
   </div>
 </div>
