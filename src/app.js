@@ -26,8 +26,6 @@ app.use(
   })
 );
 
-app.options("*", cors());
-
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
