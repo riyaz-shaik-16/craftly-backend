@@ -47,7 +47,6 @@ export const previewPortfolio = async (req, res, next) => {
     });
 
   } catch (error) {
-    console.log("Error: ", error);
     next(error);
   }
 };

@@ -5,6 +5,7 @@ import path from "path";
 import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
 import { normalizeUrl } from "../utils/normalizeUrl.js";
 import { renderTemplate } from "../services/template.service.js";
+import { parseResume } from "../services/gemini.js";
 
 export const savePortfolio = async (req, res, next) => {
   try {
@@ -287,7 +288,6 @@ export const deployPortfolio = async (req, res) => {
 };
 
 export const getTemplate = async (req, res, next) => {
-  console.log("here");
   try {
     const portfolio = await Portfolio.findOne({
       userId: req.user._id,
@@ -326,6 +326,47 @@ export const getTheme = async (req, res, next) => {
       success: true,
       theme: portfolio.theme,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
+export const getDetails = async (req, res, next) => {
+  try {
+    const file = req.file;
+
+
+    if (!file) {
+      return res.status(400).json({
+        success: false,
+        message: "Please upload a resume!",
+      });
+    }
+
+    const uploadDir = path.join(process.cwd(), "public/uploads");
+
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+
+    const fileName = `${file.originalname}`;
+    const filePath = path.join(uploadDir, fileName);
+
+    // Save file to disk
+    fs.writeFileSync(filePath, file.buffer);
+
+    const details = await parseResume(filePath);
+
+    fs.unlinkSync(filePath);
+
+    return res.status(200).json({
+      success: true,
+      message: "File uploaded and processed successfully",
+      details
+    });
+
   } catch (error) {
     next(error);
   }

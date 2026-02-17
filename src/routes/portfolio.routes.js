@@ -3,6 +3,7 @@ import { protect } from "../middlewares/auth.middleware.js";
 import upload from "../middlewares/multer.middleware.js";
 import {
   deployPortfolio,
+  getDetails,
   getPortfolio,
   getTemplate,
   getTheme,
@@ -50,6 +51,12 @@ router.post(
   deployPortfolio
 );
 
+router.post(
+  "/get-details",
+  protect,
+  upload.single("resume"),
+  getDetails
+)
 
 router.get("/", protect, getPortfolio);
 

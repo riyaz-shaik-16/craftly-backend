@@ -3,16 +3,19 @@ import multer from "multer";
 // Store uploaded files in memory instead of disk
 const storage = multer.memoryStorage();
 
-// Validate that only image files are accepted
+// Allow images + PDFs
 const fileFilter = (_req, file, cb) => {
-  if (file.mimetype.startsWith("image/")) {
+  const isImage = file.mimetype.startsWith("image/");
+  const isPDF = file.mimetype === "application/pdf";
+
+  if (isImage || isPDF) {
     cb(null, true);
   } else {
-    cb(new Error("Only image files are allowed"), false);
+    cb(new Error("Only image files and PDFs are allowed"), false);
   }
 };
 
-// Configure multer with storage, file validation, and 5MB size limit
+// Configure multer with storage, validation, and 5MB size limit
 const upload = multer({
   storage,
   fileFilter,
