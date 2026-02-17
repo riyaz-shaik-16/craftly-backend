@@ -265,7 +265,7 @@ export const deployPortfolio = async (req, res) => {
     fs.writeFileSync(path.join(userPath, "index.html"), html);
 
     // Update deployment status
-    portfolio.deployedUrl = `https://${user.username}.riyazdev.site`;
+    portfolio.deployedUrl = `https://${user.username}.craftly.live`;
     portfolio.status = "live";
     portfolio.hasChanges = false;
     await portfolio.save();
