@@ -42,7 +42,8 @@ export const getDashboard = async (req, res, next) => {
       portfolio: {
         template: portfolio.template,
         deployedUrl: portfolio.deployedUrl,
-        updatedAt: portfolio.updatedAt
+        updatedAt: portfolio.updatedAt,
+        hasChanges: portfolio.hasChanges
       }
     });
   } catch (error) {

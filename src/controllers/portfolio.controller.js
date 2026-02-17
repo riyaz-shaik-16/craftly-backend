@@ -93,6 +93,7 @@ export const savePortfolio = async (req, res, next) => {
         theme,
         data: parsedData,
         status: "draft",
+        hasChanges:true
       },
       {
         new: true,
@@ -129,7 +130,7 @@ export const updateTheme = async (req, res, next) => {
     
     const portfolio = await Portfolio.findOneAndUpdate(
       { userId: req.user._id },
-      { $set: { theme } },
+      { $set: { theme, hasChanges: true } },
       { new: true, runValidators: true },
     );
 
@@ -164,7 +165,7 @@ export const updateTemplate = async (req, res, next) => {
 
     const portfolio = await Portfolio.findOneAndUpdate(
       { userId: req.user._id },
-      { $set: { template } },
+      { $set: { template, hasChanges:  true } },
       { new: true, runValidators: true },
     );
 
@@ -266,6 +267,7 @@ export const deployPortfolio = async (req, res) => {
     // Update deployment status
     portfolio.deployedUrl = `https://${user.username}.riyazdev.site`;
     portfolio.status = "live";
+    portfolio.hasChanges = false;
     await portfolio.save();
 
     return res.status(200).json({

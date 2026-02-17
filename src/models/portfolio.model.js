@@ -6,12 +6,12 @@ const portfolioSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      unique: true
+      unique: true,
     },
 
     template: {
       type: String,
-      default:"modern"
+      default: "modern",
     },
 
     theme: {
@@ -20,7 +20,7 @@ const portfolioSchema = new mongoose.Schema(
       text: String,
       accent: String,
       font: String,
-      layout: String
+      layout: String,
     },
 
     data: {
@@ -31,7 +31,7 @@ const portfolioSchema = new mongoose.Schema(
         phone: String,
         location: String,
         bio: String,
-        avatar: String
+        avatar: String,
       },
 
       projects: [
@@ -45,9 +45,9 @@ const portfolioSchema = new mongoose.Schema(
           images: [String],
           featured: {
             type: Boolean,
-            default: false
-          }
-        }
+            default: false,
+          },
+        },
       ],
 
       experience: [
@@ -57,16 +57,16 @@ const portfolioSchema = new mongoose.Schema(
           startDate: Date,
           endDate: Date,
           current: Boolean,
-          description: String
-        }
+          description: String,
+        },
       ],
 
       skills: [
         {
           name: String,
           category: String,
-          level: Number
-        }
+          level: Number,
+        },
       ],
 
       education: [
@@ -75,8 +75,8 @@ const portfolioSchema = new mongoose.Schema(
           degree: String,
           field: String,
           startDate: Date,
-          endDate: Date
-        }
+          endDate: Date,
+        },
       ],
 
       certifications: [
@@ -84,8 +84,8 @@ const portfolioSchema = new mongoose.Schema(
           name: String,
           issuer: String,
           issueDate: Date,
-          images: [String]
-        }
+          images: [String],
+        },
       ],
 
       achievements: [
@@ -93,27 +93,31 @@ const portfolioSchema = new mongoose.Schema(
           title: String,
           description: String,
           date: Date,
-          images: [String]
-        }
+          images: [String],
+        },
       ],
 
       socialLinks: {
         github: String,
         linkedin: String,
         twitter: String,
-        website: String
-      }
+        website: String,
+      },
     },
 
     status: {
       type: String,
-      enum: ["draft", "live","new"],
-      default: "new"
+      enum: ["draft", "live", "new"],
+      default: "new",
     },
 
-    deployedUrl: String
+    deployedUrl: String,
+    hasChanges: {
+      type: Boolean,
+      default: false,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model("Portfolio", portfolioSchema);
