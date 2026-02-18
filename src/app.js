@@ -18,10 +18,15 @@ app.use(express.json({ limit: "2mb" }));
 
 app.use(
   cors({
-    origin: [process.env.CLIENT_URL1, process.env.CLIENT_URL2, process.env.CLIENT_URL3, process.env.CLIENT_URL4],
+    origin: [
+      process.env.CLIENT_URL1,
+      process.env.CLIENT_URL2,
+      process.env.CLIENT_URL3,
+      process.env.CLIENT_URL4,
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   }),
 );
 
@@ -37,7 +42,31 @@ app.use("/api/auth", authRoutes);
 app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/preview", previewRoutes);
-// app.use("/", publicRoutes);
+
+app.use((err, req, res, next) => {
+  if (err.name === "ValidationError") {
+    const firstError = Object.values(err.errors)[0];
+
+    return res.status(400).json({
+      success: false,
+      message: firstError.message,
+    });
+  }
+
+  if (err.code === 11000) {
+    const field = Object.keys(err.keyPattern)[0];
+
+    return res.status(409).json({
+      success: false,
+      message: `${field} already exists`,
+    });
+  }
+
+  res.status(500).json({
+    success: false,
+    message: "Something went wrong",
+  });
+});
 
 app.use(notFound);
 app.use(errorHandler);
