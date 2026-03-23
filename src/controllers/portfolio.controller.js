@@ -2,10 +2,35 @@ import Portfolio from "../models/portfolio.model.js";
 import User from "../models/user.model.js";
 import fs from "fs";
 import path from "path";
+import { S3Client } from "@aws-sdk/client-s3";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
 import { normalizeUrl } from "../utils/normalizeUrl.js";
 import { renderTemplate } from "../services/template.service.js";
 import { parseResume } from "../services/gemini.js";
+
+
+const s3 = new S3Client({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_KEY
+  }
+});
+
+const uploadToS3 = async (username, html) => {
+  const key = `${username}/index.html`;
+
+  await s3.send(
+    new PutObjectCommand({
+      Bucket: process.env.AWS_S3_BUCKET,
+      Key: key,
+      Body: html,
+      ContentType: "text/html"
+    })
+  );
+};
+
 
 export const savePortfolio = async (req, res, next) => {
   try {
@@ -219,7 +244,6 @@ export const deployPortfolio = async (req, res) => {
       });
     }
 
-    // Get user
     const user = await User.findById(req.user._id);
     if (!user) {
       return res.status(404).json({
@@ -228,7 +252,6 @@ export const deployPortfolio = async (req, res) => {
       });
     }
 
-    // Validate username (important for folder safety)
     if (!/^[a-z0-9-]+$/i.test(user.username)) {
       return res.status(400).json({
         success: false,
@@ -236,7 +259,6 @@ export const deployPortfolio = async (req, res) => {
       });
     }
 
-    // Get portfolio
     const portfolio = await Portfolio.findOne({ userId: user._id });
     if (!portfolio) {
       return res.status(404).json({
@@ -245,26 +267,14 @@ export const deployPortfolio = async (req, res) => {
       });
     }
 
-    // Generate HTML
     const html = renderTemplate({
       template: portfolio.template,
       data: portfolio.data,
       theme: portfolio.theme
     });
 
-    // Static base directory
-    const basePath = "/var/www/craftly";
-    const userPath = path.join(basePath, user.username);
+    await uploadToS3(user.username, html);
 
-    // Create folder if not exists
-    if (!fs.existsSync(userPath)) {
-      fs.mkdirSync(userPath, { recursive: true });
-    }
-
-    // Write index.html (overwrite if exists)
-    fs.writeFileSync(path.join(userPath, "index.html"), html);
-
-    // Update deployment status
     portfolio.deployedUrl = `https://${user.username}.craftly.live`;
     portfolio.status = "live";
     portfolio.hasChanges = false;
